@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "slacknodesdk_test",
+  "version": "1.0.1",
+  "description": "first test bot with slack node sdk",
+  "main": "mvp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zeke hart",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/events-api": "^2.3.0",
+    "@slack/web-api": "^5.1.0",
+    "axios": "^0.19.0",
+    "natural": "^0.6.3"
+  }
+}
