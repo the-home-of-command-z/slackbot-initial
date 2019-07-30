@@ -10,8 +10,10 @@ const currentTime = new Date().toTimeString()
 
 const matt_url = process.env.MATT_URL
 const turnLightOn = `${matt_url}/api/services/light/turn_on`
+const toggleLight = `${matt_url}/api/services/light/toggle`
 const turnLightOff = `${matt_url}/api/services/light/turn_off`
 const lightswitchURL = `${matt_url}/api/states/light.living_room`
+const generalInfo = `${matt_url}/api/states`
 const authHeaders = {
   authorization: `Bearer ${matt_auth}`,
   'content-type': 'application/json'
@@ -45,6 +47,18 @@ slackEvents.on('message', (event) => {
       text: `Hey ${event.user}, I tried to turn the lights on`
     })
   }
+  if (event.text.includes('toggle please')) {
+    axios.post(toggleLight, bodyLightId, {
+      headers: authHeaders
+    }
+    )
+
+    web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Hey ${event.user}, I tried to toggle the lights`
+    })
+  }
   if (event.text.includes('homeaway')) {
     web.chat.postMessage({
       channel: event.channel,
@@ -75,6 +89,20 @@ slackEvents.on('message', (event) => {
 
   if (event.text.includes('status')) {
     axios.get(lightswitchURL, {
+      headers: authHeaders
+    }
+    )
+      .then(function (response) {
+        web.chat.postMessage({
+          channel: event.channel,
+          // channel: 'bottons',
+          icon_emoji: ':cat:',
+          text: `Your light is currently ${response.data.state}`
+        })
+      })
+  }
+  if (event.text.includes('devices')) {
+    axios.get(generalInfo, {
       headers: authHeaders
     }
     )
