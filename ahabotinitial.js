@@ -77,13 +77,13 @@ slackEvents.on('message', (event) => {
     axios.get(lightswitchURL, {
       headers: authHeaders
     }
-    ).then(function (response) { console.log(response) })
+    )
       .then(function (response) {
         web.chat.postMessage({
           channel: event.channel,
           // channel: 'bottons',
           icon_emoji: ':cat:',
-          text: `${response}`
+          text: `Your light is currently ${response.data.state}`
         })
       })
   }
