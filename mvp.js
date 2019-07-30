@@ -1,6 +1,6 @@
 const axios = require('axios')
 const matt_auth = process.env.MATT_AUTH
-const matt_url = pocess.env.MATT_URL
+const matt_url = process.env.MATT_URL
 const turnLightOn = `${matt_url}/api/services/light/turn_on`
 const turnLightOff = `${matt_url}/api/services/light/turn_off`
 const lightswitchURL = `${matt_url}/api/states/light.living_room`
