@@ -1,6 +1,7 @@
 const natural = require('natural')
 
 const classifierAction = new natural.BayesClassifier()
+// const classifierObject = new natural.BayesClassifier()
 
 // Turn On Classifiers
 classifierAction.addDocument('turn the lights on', 'turn_on')
@@ -59,8 +60,10 @@ classifierAction.addDocument('too quiet', 'volume_up')
 classifierAction.addDocument('turn it down', 'volume_down')
 classifierAction.addDocument('turn that down', 'volume_down')
 classifierAction.addDocument('too loud', 'volume_down')
-classifierAction.addDocument
+classifierAction.addDocument('make it quieter', 'volume_down')
 
+// Device Classifiers
+// classifierObject.addDocument()
 
 
 classifierAction.train()
