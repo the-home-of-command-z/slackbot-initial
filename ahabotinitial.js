@@ -7,6 +7,11 @@ const matt_auth = process.env.MATT_AUTH
 const slackEvents = createEventAdapter(slackSigningSecret)
 const web = new WebClient(process.env.SLACK_TOKEN)
 const currentTime = new Date().toTimeString()
+const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
+let slackUserHeader = {
+  auth: `${slackUserName}`,
+  'content-type': 'application/json'
+}
 
 const matt_url = process.env.MATT_URL
 const turnLightOn = `${matt_url}/api/services/light/turn_on`
@@ -21,6 +26,7 @@ const authHeaders = {
 const bodyLightId = { entity_id: 'light.living_room' }
 const port = process.env.PORT || 3000
 const greetings = ['hi', 'hello', 'good morning', 'good evening', 'hey', 'howdy']
+const appToken = process.env.BOTTONS_TOKEN
 
 slackEvents.on('message', (event) => {
   if (event.text.includes('lights off please')) {
@@ -64,6 +70,33 @@ slackEvents.on('message', (event) => {
       channel: event.channel,
       icon_emoji: ':cat:',
       text: `HomeAway is our almost working chatbot!`
+    })
+  }
+  if (event.text.includes('what')) {
+    axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`).then(function (response) {
+      slackUserHeader = {
+        auth: `${response.user.data.name}`,
+        'content-type': 'application/json'
+      }
+      axios.get(djangoURL, {
+        headers: slackUserHeader
+      }).then(function (response) {
+        const userUrl = response.data[0].url
+        const userToken = response.data[0].access_token
+        const authHeadersActual = {
+          authorization: `Bearer ${userToken}`,
+          'content-type': 'application/json'
+        }
+        axios.get(`https://${userUrl}/api/states/light.living_room`, {
+          headers: authHeadersActual
+        })
+      })
+      //   web.chat.postMessage({
+      //     channel: event.channel,
+      //     icon_emoji: ':cat:',
+      //     text: `Your username is ${response.data.user.name}`
+      //   })
+      console.log(response.data.user.name)
     })
   }
   for (const greeting of greetings) {
