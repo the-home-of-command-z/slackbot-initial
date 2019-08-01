@@ -9,6 +9,12 @@ const authHeaders = {
   'content-type': 'application/json'
 }
 const bodyLightId = { entity_id: 'light.living_room' }
+const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
+const slackUserName = 'mattspeidel'
+const slackUserHeader = {
+  auth: `${slackUserName}`,
+  'content-type': 'application/json'
+}
 
 // The code to turn the lights on
 // axios.post(turnLightOn, bodyLightId, {
@@ -22,7 +28,23 @@ const bodyLightId = { entity_id: 'light.living_room' }
 // }
 // )
 
-axios.get(lightswitchURL, {
-  headers: authHeaders
-}
-).then(function (response) { console.log(response) })
+// axios.get(lightswitchURL, {
+//   headers: authHeaders
+// }
+// ).then(function (response) { console.log(response) })
+
+// code to get
+axios.get(djangoURL, {
+  headers: slackUserHeader
+}).then(function (response) {
+  const userUrl = response.data[0].url
+  const userToken = response.data[0].access_token
+  const authHeaderInitial = {
+    authorization: `Bearer ${userToken}`,
+    'content-type': 'application/json'
+  }
+  axios.get(`https://${userUrl}/api/states/light.living_room`, {
+    headers: authHeaderInitial
+  }
+  ).then(function (response) { console.log(response) })
+})
