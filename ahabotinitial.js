@@ -8,10 +8,10 @@ const slackEvents = createEventAdapter(slackSigningSecret)
 const web = new WebClient(process.env.SLACK_TOKEN)
 const currentTime = new Date().toTimeString()
 const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
-let slackUserHeader = {
-  auth: `${slackUserName}`,
-  'content-type': 'application/json'
-}
+// let slackUserHeader = {
+//   auth: `${slackUserName}`,
+//   'content-type': 'application/json'
+// }
 
 const matt_url = process.env.MATT_URL
 const turnLightOn = `${matt_url}/api/services/light/turn_on`
@@ -27,6 +27,7 @@ const bodyLightId = { entity_id: 'light.living_room' }
 const port = process.env.PORT || 3000
 const greetings = ['hi', 'hello', 'good morning', 'good evening', 'hey', 'howdy']
 const appToken = process.env.BOTTONS_TOKEN
+let authHeadersActual
 
 slackEvents.on('message', (event) => {
   if (event.text.includes('lights off please')) {
@@ -76,28 +77,35 @@ slackEvents.on('message', (event) => {
   if (event.text.includes('what')) {
     axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`)
       .then(function (response) {
-        slackUserHeader = {
-          auth: `${response.user.data.name}`,
+        const slackUserHeader = {
+          auth: `${response.data.user.name}`,
           'content-type': 'application/json'
         }
+        // console.log('username:', response.data.user.name)
         axios.get(djangoURL, {
           headers: slackUserHeader
         }).then(function (response) {
+        //   console.log('response 2:', response)
           const userUrl = response.data[0].url
           const userToken = response.data[0].access_token
-          const authHeadersActual = {
+          authHeadersActual = {
             authorization: `Bearer ${userToken}`,
             'content-type': 'application/json'
           }
+          console.log('header', authHeadersActual)
+          console.log('url', userUrl)
+
           axios.get(`https://${userUrl}/api/states/light.living_room`, {
             headers: authHeadersActual
+          }).then(function (response) {
+            console.log('response 3:', response)
+            web.chat.postMessage({
+              channel: event.channel,
+              icon_emoji: ':cat:',
+              text: `Your light is ${response.data.state}`
+            })
           })
         })
-        //   web.chat.postMessage({
-        //     channel: event.channel,
-        //     icon_emoji: ':cat:',
-        //     text: `Your username is ${response.data.user.name}`
-        //   })
         console.log(response.data.user.name)
       })
   }
