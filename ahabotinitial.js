@@ -72,32 +72,34 @@ slackEvents.on('message', (event) => {
       text: `HomeAway is our almost working chatbot!`
     })
   }
+  // TEST CODE. I think this works but I have to get my slack stuff setup on django to check
   if (event.text.includes('what')) {
-    axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`).then(function (response) {
-      slackUserHeader = {
-        auth: `${response.user.data.name}`,
-        'content-type': 'application/json'
-      }
-      axios.get(djangoURL, {
-        headers: slackUserHeader
-      }).then(function (response) {
-        const userUrl = response.data[0].url
-        const userToken = response.data[0].access_token
-        const authHeadersActual = {
-          authorization: `Bearer ${userToken}`,
+    axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`)
+      .then(function (response) {
+        slackUserHeader = {
+          auth: `${response.user.data.name}`,
           'content-type': 'application/json'
         }
-        axios.get(`https://${userUrl}/api/states/light.living_room`, {
-          headers: authHeadersActual
+        axios.get(djangoURL, {
+          headers: slackUserHeader
+        }).then(function (response) {
+          const userUrl = response.data[0].url
+          const userToken = response.data[0].access_token
+          const authHeadersActual = {
+            authorization: `Bearer ${userToken}`,
+            'content-type': 'application/json'
+          }
+          axios.get(`https://${userUrl}/api/states/light.living_room`, {
+            headers: authHeadersActual
+          })
         })
+        //   web.chat.postMessage({
+        //     channel: event.channel,
+        //     icon_emoji: ':cat:',
+        //     text: `Your username is ${response.data.user.name}`
+        //   })
+        console.log(response.data.user.name)
       })
-      //   web.chat.postMessage({
-      //     channel: event.channel,
-      //     icon_emoji: ':cat:',
-      //     text: `Your username is ${response.data.user.name}`
-      //   })
-      console.log(response.data.user.name)
-    })
   }
   for (const greeting of greetings) {
     if (event.text.includes(greeting)) {
