@@ -19,14 +19,7 @@ slackEvents.on('message', async (event) => {
   const authHeadersActual = await makeHeader(userInfoResponse)
 
   if (event.text.includes('test3')) {
-    const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
-      headers: authHeadersActual
-    })
-    web.chat.postMessage({
-      channel: event.channel,
-      icon_emoji: ':cat:',
-      text: `Your light is  ${lightState.data.state}`
-    })
+    checkLightStatus(userUrl, authHeadersActual, event)
   }
 })
 
@@ -50,6 +43,17 @@ function makeHeader (userInfoResponse) {
     'content-type': 'application/json'
   }
   return authHeadersActual
+}
+
+async function checkLightStatus (userUrl, authHeadersActual, event) {
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light is  ${lightState.data.state}`
+  })
 }
 
 (async () => {
