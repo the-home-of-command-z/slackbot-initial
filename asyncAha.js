@@ -74,8 +74,8 @@ slackEvents.on('message', (event) => {
     })
   }
   // TEST CODE. I think this works but I have to get my slack stuff setup on django to check
-  if (event.text.includes('what is my light doing?')) {
-    authGetHeader(event)
+  if (event.text.includes('test2')) {
+    getAuthHeader(event)
   }
   for (const greeting of greetings) {
     if (event.text.includes(greeting)) {
@@ -144,40 +144,30 @@ slackEvents.on('error', (error) => {
   console.log(`Listening for events on ${server.address().port}`)
 })()
 
-function authGetHeader (event) {
-  axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`)
-    .then(function (response) {
-      const slackUserHeader = {
-        auth: `${response.data.user.name}`,
-        'content-type': 'application/json'
-      }
-      console.log('username:', response.data.user.name)
-      axios.get(djangoURL, {
-        headers: slackUserHeader
-      }).then(function (response) {
-      //   console.log('response 2:', response)
-        const userUrl = response.data[0].url
-        const userToken = response.data[0].access_token
-        authHeadersActual = {
-          authorization: `Bearer ${userToken}`,
-          'content-type': 'application/json'
-        }
-        console.log('header', authHeadersActual)
-        console.log('url', userUrl)
+async function getAuthHeader (event) {
+  const response = await axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`)
+  const slackUserHeader = {
+    auth: `${response.data.user.name}`,
+    'content-type': 'application/json'
+  }
 
-        axios.get(`https://${userUrl}/api/states/light.living_room`, {
-          headers: authHeadersActual
-        }).then(function (response) {
-          console.log('response 3:', response.data)
-          web.chat.postMessage({
-            channel: event.channel,
-            icon_emoji: ':cat:',
-            text: `Your light is ${response.data.state}`
-          })
-        })
-      })
-      // console.log(response.data.user.name)
-    }).catch(function (err) {
-      console.log(err)
-    })
+  const response2 = await axios.get(djangoURL, {
+    headers: slackUserHeader
+  })
+
+  const userUrl = response2.data[0].url
+  const userToken = response2.data[0].access_token
+  authHeadersActual = {
+    authorization: `Bearer ${userToken}`,
+    'content-type': 'application/json'
+  }
+
+  const response3 = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light is ${response3.data.state}`
+  })
 }
