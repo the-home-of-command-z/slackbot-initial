@@ -10,6 +10,8 @@ const currentTime = new Date().toTimeString()
 const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
 const port = process.env.PORT || 3000
 const appToken = process.env.BOTTONS_TOKEN
+// replace the following hard-coded value
+const bodyLightId = { entity_id: 'light.living_room' }
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
@@ -18,8 +20,11 @@ slackEvents.on('message', async (event) => {
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
 
-  if (event.text.includes('test3')) {
+  if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_on')) {
+    turnLightOn(userUrl, authHeadersActual, bodyLightId, event)
   }
 })
 
@@ -53,6 +58,18 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `Your light is  ${lightState.data.state}`
+  })
+}
+
+async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
+  const lightState = await axios.post(`https://${userUrl}/api/services/light/turn_on`, {
+    headers: authHeadersActual,
+    body: bodyLightId
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light is now ${lightState.data.state}`
   })
 }
 
