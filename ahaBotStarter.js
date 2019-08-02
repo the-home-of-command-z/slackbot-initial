@@ -15,8 +15,6 @@ const bodyLightId = { entity_id: 'light.living_room' }
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
-//   console.log(event.user)
-//   console.log(appToken)
   const userInfoResponse = await getUserInfo(event)
   //   console.log(userInfoResponse)
   const userUrl = await userInfoResponse.data[0].url
@@ -33,15 +31,13 @@ slackEvents.on('message', async (event) => {
 // this function issues a UnhandledPromiseRejectionWarning, but it works, can revisit later if time allows
 async function getUserInfo (event) {
   const response = await axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`)
-  const slackUserHeader = await {
+  const slackUserHeader = {
     auth: `${response.data.user.name}`,
     'content-type': 'application/json'
   }
-  //   console.log('test2')
   const response2 = await axios.get(djangoURL, {
     headers: slackUserHeader
   })
-  //   console.log(response)
   return response2
 }
 
@@ -53,22 +49,23 @@ function makeHeader (userInfoResponse) {
   }
   return authHeadersActual
 }
-
+// listeners begin
 async function checkLightStatus (userUrl, authHeadersActual, event) {
   const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
     headers: authHeadersActual
   })
-
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is  ${lightState.data.state}`
+    text: `Your light is ${lightState.data.state}`
   })
-//   console.log(lightState.data.state)
 }
 
 async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
-  const lightState = await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightId, {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightId, {
+    headers: authHeadersActual
+  })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -77,7 +74,7 @@ async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
     text: `Your light is now ${lightState.data.state}`
   })
 }
-
+// listeners end
 (async () => {
   // Start the built-in server
   const server = await slackEvents.start(port)
