@@ -113,18 +113,7 @@ slackEvents.on('message', (event) => {
       })
   }
   if (event.text.includes('devices')) {
-    axios.get(generalInfo, {
-      headers: authHeaders
-    }
-    )
-      .then(function (response) {
-        web.chat.postMessage({
-          channel: event.channel,
-          // channel: 'bottons',
-          icon_emoji: ':cat:',
-          text: `Your light is currently ${response.data.state}`
-        })
-      })
+    getLightStatus(event)
   }
 })
 
@@ -161,8 +150,24 @@ async function getAuthHeader (event) {
     authorization: `Bearer ${userToken}`,
     'content-type': 'application/json'
   }
+}
 
-  const response3 = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
+async function getLightStatus (event) {
+  const response = await axios.get(generalInfo, {
+    headers: authHeaders
+  }
+  )
+
+  web.chat.postMessage({
+    channel: event.channel,
+    // channel: 'bottons',
+    icon_emoji: ':cat:',
+    text: `Your light is currently ${response.data.state}`
+  })
+}
+
+
+const response3 = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -170,4 +175,3 @@ async function getAuthHeader (event) {
     icon_emoji: ':cat:',
     text: `Your light is ${response3.data.state}`
   })
-}
