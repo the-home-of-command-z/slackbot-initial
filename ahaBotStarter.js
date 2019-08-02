@@ -9,12 +9,14 @@ const web = new WebClient(process.env.SLACK_TOKEN)
 const currentTime = new Date().toTimeString()
 const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
 const port = process.env.PORT || 3000
-const appToken = process.env.BOTTONS_TOKEN
+const appToken = process.env.AHABOT_TOKEN
 // replace the following hard-coded value
 const bodyLightId = { entity_id: 'light.living_room' }
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
+//   console.log(event.user)
+//   console.log(appToken)
   const userInfoResponse = await getUserInfo(event)
   //   console.log(userInfoResponse)
   const userUrl = await userInfoResponse.data[0].url
@@ -31,13 +33,15 @@ slackEvents.on('message', async (event) => {
 // this function issues a UnhandledPromiseRejectionWarning, but it works, can revisit later if time allows
 async function getUserInfo (event) {
   const response = await axios.get(`https://slack.com/api/users.info?token=${appToken}&user=${event.user}&pretty=1`)
-  const slackUserHeader = {
+  const slackUserHeader = await {
     auth: `${response.data.user.name}`,
     'content-type': 'application/json'
   }
+  //   console.log('test2')
   const response2 = await axios.get(djangoURL, {
     headers: slackUserHeader
   })
+  //   console.log(response)
   return response2
 }
 
@@ -54,17 +58,18 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
     headers: authHeadersActual
   })
+
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `Your light is  ${lightState.data.state}`
   })
+//   console.log(lightState.data.state)
 }
 
 async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
-  const lightState = await axios.post(`https://${userUrl}/api/services/light/turn_on`, {
-    headers: authHeadersActual,
-    body: bodyLightId
+  const lightState = await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightId, {
+    headers: authHeadersActual
   })
   web.chat.postMessage({
     channel: event.channel,
