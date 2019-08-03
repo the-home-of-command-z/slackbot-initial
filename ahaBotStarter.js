@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000
 const appToken = process.env.AHABOT_TOKEN
 // replace the following hard-coded values with classification
 const bodyLightId = { entity_id: 'light.living_room' }
+const bodySwitchId = { entity_id: 'switch.living_room' }
 const bodyLightIdRed = { entity_id: 'light.living_room', rgb_color: [255, 0, 0] }
 const bodyLightIdGreen = { entity_id: 'light.living_room', rgb_color: [0, 255, 0] }
 const bodyLightIdBlue = { entity_id: 'light.living_room', rgb_color: [0, 0, 255] }
@@ -33,12 +34,20 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('test5')) {
     getStates(userUrl, authHeadersActual)
   }
-
   if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_on')) {
     turnLightOn(userUrl, authHeadersActual, bodyLightId, event)
+  }
+  if (event.text.includes('switch_status')) {
+    checkSwitchStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('switch_on')) {
+    turnSwitchOn(userUrl, authHeadersActual, bodySwitchId, event)
+  }
+  if (event.text.includes('switch_off')) {
+    turnSwitchOff(userURL, authHeadersActual, bodySwitchId, event)
   }
   if (event.text.includes('light_off')) {
     turnLightOff(userUrl, authHeadersActual, bodyLightId, event)
@@ -70,7 +79,8 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('light_low')) {
     turnLightLowBright(userUrl, authHeadersActual, bodyLightIdLowBright, event)
   }
-})
+  })
+
 // listeners end
 
 // this function issues a UnhandledPromiseRejectionWarning, but it works, can revisit later if time allows
@@ -118,6 +128,17 @@ async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
     text: `Your light is now ${lightState.data.state}`
   })
 }
+
+async function checkSwitchStatus (userUrl, authHeadersActual, event) {
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your switch is ${switchState.data.state}`
+  })
+}
 async function turnLightOff (userUrl, authHeadersActual, bodyLightId, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_off`, bodyLightId, {
     headers: authHeadersActual
@@ -151,6 +172,20 @@ async function turnLightGreen (userUrl, authHeadersActual, bodyLightIdGreen, eve
     text: `Your light is now green.`
   })
 }
+
+async function turnSwitchOn (userUrl, authHeadersActual, bodySwitchId, event) {
+  await axios.post(`https://${userUrl}/api/services/switch/turn_on`, bodySwitchId, {
+    headers: authHeadersActual
+  })
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Your switch is now ${switchState.data.state}`
+  })
+}
 async function turnLightBlue (userUrl, authHeadersActual, bodyLightIdBlue, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdBlue, {
     headers: authHeadersActual
@@ -169,6 +204,20 @@ async function turnLightPolice (userUrl, authHeadersActual, bodyLightIdPolice, e
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `Your light is displaying a police strobe effect.`
+  })
+}
+
+async function turnSwitchOff (userUrl, authHeadersActual, bodySwitchId, event) {
+  await axios.post(`https://${userUrl}/api/services/switch/turn_off`, bodySwitchId, {
+    headers: authHeadersActual
+  })
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Your switch is now ${switchState.data.state}`
   })
 }
 async function turnLightRandom (userUrl, authHeadersActual, bodyLightIdRandom, event) {
@@ -228,9 +277,9 @@ async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBri
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now set to low brightness.`
-  })
+    text: `Your light is now set to low brightness.`  })
 }
+
 async function getStatesInfo (userUrl, authHeadersActual) {
   const StatesInfo = await axios.get(`https://${userUrl}/api/states`, {
     headers: authHeadersActual
