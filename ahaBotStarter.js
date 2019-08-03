@@ -61,13 +61,13 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('light_stop')) {
     turnLightStop(userUrl, authHeadersActual, bodyLightIdStop, event)
   }
-  if (event.text.includes('light_stop')) {
+  if (event.text.includes('light_full')) {
     turnLightFullBright(userUrl, authHeadersActual, bodyLightIdFullBright, event)
   }
-  if (event.text.includes('light_stop')) {
+  if (event.text.includes('light_medium')) {
     turnLightMedBright(userUrl, authHeadersActual, bodyLightIdMedBright, event)
   }
-  if (event.text.includes('light_stop')) {
+  if (event.text.includes('light_low')) {
     turnLightLowBright(userUrl, authHeadersActual, bodyLightIdLowBright, event)
   }
 })
