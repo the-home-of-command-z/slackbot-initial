@@ -10,15 +10,18 @@ const currentTime = new Date().toTimeString()
 const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
 const port = process.env.PORT || 3000
 const appToken = process.env.AHABOT_TOKEN
-// replace the following hard-coded value
+// replace the following hard-coded value with classification
 const bodyLightId = { entity_id: 'light.living_room' }
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
   const userInfoResponse = await getUserInfo(event)
-  //   console.log(userInfoResponse)
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
+
+  if (event.text.includes('test5')) {
+    getStates(userUrl, authHeadersActual)
+  }
 
   if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
@@ -74,7 +77,31 @@ async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
     text: `Your light is now ${lightState.data.state}`
   })
 }
+<<<<<<< HEAD
 // listeners end
+=======
+
+async function getStatesInfo (userUrl, authHeadersActual) {
+  const StatesInfo = await axios.get(`https://${userUrl}/api/states`, {
+    headers: authHeadersActual
+  })
+  return StatesInfo
+}
+
+async function getStates (userUrl, authHeadersActual) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  for (const entity of statesData.data) {
+    if (entity.attributes.friendly_name && entity.state !== 'unknown') {
+      entityArray.push(`Your ${entity.attributes.friendly_name} is ${entity.state}`)
+    }
+  }
+  console.log(entityArray)
+  return entityArray
+}
+
+>>>>>>> origin/master
 (async () => {
   // Start the built-in server
   const server = await slackEvents.start(port)
