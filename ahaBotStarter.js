@@ -279,8 +279,6 @@ async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBri
     icon_emoji: ':cat:',
     text: `Your light is now set to low brightness.`  })
 }
-// listeners end
-
 
 async function getStatesInfo (userUrl, authHeadersActual) {
   const StatesInfo = await axios.get(`https://${userUrl}/api/states`, {
