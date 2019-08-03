@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000
 const appToken = process.env.AHABOT_TOKEN
 // replace the following hard-coded value with classification
 const bodyLightId = { entity_id: 'light.living_room' }
+const bodySwitchId = { entity_id: 'switch.living_room' }
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
@@ -28,6 +29,15 @@ slackEvents.on('message', async (event) => {
   }
   if (event.text.includes('light_on')) {
     turnLightOn(userUrl, authHeadersActual, bodyLightId, event)
+  }
+  if (event.text.includes('switch_status')) {
+    checkSwitchStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('switch_on')) {
+    turnSwitchOn(userUrl, authHeadersActual, bodySwitchId, event)
+  }
+  if (event.text.includes('switch_off')) {
+    turnSwitchOff(userURL, authHeadersActual, bodySwitchId, event)
   }
 })
 
@@ -77,9 +87,46 @@ async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
     text: `Your light is now ${lightState.data.state}`
   })
 }
-<<<<<<< HEAD
+
+async function checkSwitchStatus (userUrl, authHeadersActual, event) {
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+    header: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your switch is ${switchState.data.state}`
+  })
+}
+
+async function turnSwitchOn (userUrl, authHeadersActual, bodySwitchId, event) {
+  await axios.post(`https://${userUrl}/api/services/switch/turn_on`, bodySwitchId, {
+    headers: authHeadersActual
+  })
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your switch is now ${switchState.data.state}`
+  })
+}
+
+async function turnSwitchOff (userUrl, authHeadersActual, bodySwitchId, event) {
+  await axios.post(`https://${userUrl}/api/services/switch/turn_off`, bodySwitchId, {
+    headers: authHeadersActual
+  })
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your switch is now ${switchState.data.state}`
+  })
+}
 // listeners end
-=======
 
 async function getStatesInfo (userUrl, authHeadersActual) {
   const StatesInfo = await axios.get(`https://${userUrl}/api/states`, {
@@ -101,7 +148,6 @@ async function getStates (userUrl, authHeadersActual) {
   return entityArray
 }
 
->>>>>>> origin/master
 (async () => {
   // Start the built-in server
   const server = await slackEvents.start(port)
