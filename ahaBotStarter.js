@@ -169,7 +169,7 @@ async function turnLightGreen (userUrl, authHeadersActual, bodyLightIdGreen, eve
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your switch is ${switchState.data.state}`
+    text: `Your light is now green.`
   })
 }
 
@@ -178,7 +178,12 @@ async function turnSwitchOn (userUrl, authHeadersActual, bodySwitchId, event) {
     headers: authHeadersActual
   })
   const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
-    text: `Your light is now green.`
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Your switch is now ${switchState.data.state}`
   })
 }
 async function turnLightBlue (userUrl, authHeadersActual, bodyLightIdBlue, event) {
@@ -198,7 +203,7 @@ async function turnLightPolice (userUrl, authHeadersActual, bodyLightIdPolice, e
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your switch is now ${switchState.data.state}`
+    text: `Your light is displaying a police strobe effect.`
   })
 }
 
@@ -207,7 +212,12 @@ async function turnSwitchOff (userUrl, authHeadersActual, bodySwitchId, event) {
     headers: authHeadersActual
   })
   const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
-    text: `Your light is displaying a police strobe effect.`
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Your switch is now ${switchState.data.state}`
   })
 }
 async function turnLightRandom (userUrl, authHeadersActual, bodyLightIdRandom, event) {
