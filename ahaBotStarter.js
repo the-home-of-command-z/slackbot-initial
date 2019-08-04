@@ -10,6 +10,10 @@ const currentTime = new Date().toTimeString()
 const djangoURL = 'https://ahabot-registration.herokuapp.com/api'
 const port = process.env.PORT || 3000
 const appToken = process.env.AHABOT_TOKEN
+var ifLight = ' if you connect supported smart lighting to Home Assistant.'
+var ifSwitch = ' if you connect supported smart plugs or outlets to Home Assistant.'
+var ifTherm = ' if you connect supported smart thermostats to Home Assistant.'
+var ifMedia = ' if you connect supported media players to Home Assistant.'
 // replace the following hard-coded values with classification
 const bodyLightId = { entity_id: 'light.living_room' }
 const bodySwitchId = { entity_id: 'switch.living_room' }
@@ -33,6 +37,9 @@ slackEvents.on('message', async (event) => {
 
   if (event.text.includes('test5')) {
     getStates(userUrl, authHeadersActual)
+  }
+  if (event.text.includes('what_devices')) {
+    whatDevices(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
@@ -300,6 +307,37 @@ async function getStates (userUrl, authHeadersActual) {
   }
   console.log(entityArray)
   return entityArray
+}
+
+async function whatDevices (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  for (const entity of statesData) {
+    entityArray.push(entity.entity_id)
+  }
+  const lightResult = entityArray.filter(s => s.includes('light.'))
+  const switchResult = entityArray.filter(s => s.includes('switch.'))
+  const thermResult = entityArray.filter(s => s.includes('climate.'))
+  const mediaResult = entityArray.filter(s => s.includes('media_player.'))
+  if (typeof lightResult[0] === 'string') {
+    ifLight = '!'
+  }
+  if (typeof switchResult[0] === 'string') {
+    ifSwitch = '!'
+  }
+  if (typeof thermResult[0] === 'string') {
+    ifTherm = '!'
+  }
+  if (typeof mediaResult[0] === 'string') {
+    ifMedia = '!'
+  }
+  console.log(entityArray)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `I can control your smart lighting${ifLight}\nI can control your smart plugs and outlets${ifSwitch}\nI can control your thermostat${ifTherm}\nI can control your smart media player(s)${ifMedia}`
+  })
 }
 
 (async () => {
