@@ -296,14 +296,19 @@ async function getStatesInfo (userUrl, authHeadersActual) {
 
 async function getStates (userUrl, authHeadersActual) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
-  console.log(statesData)
   const entityArray = []
   for (const entity of statesData.data) {
     if (entity.attributes.friendly_name && entity.state !== 'unknown') {
-      entityArray.push(`Your ${entity.attributes.friendly_name} is ${entity.state}`)
+      entityArray.push({"color": "#228B22",
+        "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+      })
     }
   }
-  console.log(entityArray)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light is now set to low brightness.`  
+    attachment: entityArray})
   return entityArray
 }
 
