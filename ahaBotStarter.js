@@ -89,7 +89,7 @@ slackEvents.on('message', async (event) => {
     turnLightLowBright(userUrl, authHeadersActual, bodyLightIdLowBright, event)
   }
   if (event.text.includes('media_status')) {
-    checkMediaStatus(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    checkMediaStatus(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('media_play')) {
     turnMediaPlay(userUrl, authHeadersActual, bodyMediaPlayerId, event)
