@@ -38,8 +38,14 @@ slackEvents.on('message', async (event) => {
 
   // listeners begin
 
-  if (event.text.includes('test5')) {
+  if (event.text.includes('how_home')) {
     getStates(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_on')) {
+    getOnStates(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_off')) {
+    getOffStates(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('what_devices')) {
     whatDevices(userUrl, authHeadersActual, event)
@@ -47,7 +53,7 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('what_lights')) {
     whatLights(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('what_swtiches')) {
+  if (event.text.includes('what_switches')) {
     whatSwitches(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('what_therm')) {
@@ -465,6 +471,42 @@ async function getStatesInfo (userUrl, authHeadersActual) {
     headers: authHeadersActual
   })
   return StatesInfo
+}
+
+async function getOnStates (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  const entityArray = []
+  for (const entity of statesData.data) {
+    if (entity.attributes.friendly_name && entity.state === 'on') {
+      entityArray.push({"color": "#2fcc1b",
+      "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+    })
+    }
+  }
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Here are your devices that are switched on!`, 
+    attachments: entityArray})
+  return entityArray
+}
+
+async function getOffStates (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  const entityArray = []
+  for (const entity of statesData.data) {
+    if (entity.attributes.friendly_name && entity.state === 'off') {
+      entityArray.push({"color": "#c21913",
+      "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+    })
+    }
+  }
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Here are your devices that are switched off!`, 
+    attachments: entityArray})
+  return entityArray
 }
 
 async function getStates (userUrl, authHeadersActual, event) {
