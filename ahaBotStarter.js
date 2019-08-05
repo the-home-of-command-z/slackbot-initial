@@ -20,6 +20,7 @@ const bodySwitchId = { entity_id: 'switch.living_room' }
 const bodyLightIdRed = { entity_id: 'light.living_room', rgb_color: [255, 0, 0] }
 const bodyLightIdGreen = { entity_id: 'light.living_room', rgb_color: [0, 255, 0] }
 const bodyLightIdBlue = { entity_id: 'light.living_room', rgb_color: [0, 0, 255] }
+const bodyLightIdWhite = { entity_id: 'light.living_room', rgb_color: [255, 255, 255] }
 const bodyLightIdPolice = { entity_id: 'light.living_room', effect: 'Police' }
 const bodyLightIdRandom = { entity_id: 'light.living_room', effect: 'Fast Random Loop' }
 const bodyLightIdStop = { entity_id: 'light.living_room', effect: 'Stop' }
@@ -129,6 +130,15 @@ slackEvents.on('message', async (event) => {
   }
   if (event.text.includes('tempearture_down')) {
     turnClimateDown(userUrl, authHeadersActual, bodyClimateId, event)
+  }
+  if (event.text.includes('light_white')) {
+    turnLightWhite(userUrl, authHeadersActual, bodyLightIdWhite, event)
+  }
+  if (event.text.includes('fuel_status')) {
+    checkFuelStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('car_range')) {
+    checkCarRange(userUrl, authHeadersActual, event)
   }
   })
 
@@ -582,6 +592,42 @@ async function whatMedia (userUrl, authHeadersActual, event) {
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `These are the following connected media players available to control: ${entityString}`
+  })
+}
+
+// Turn Light White
+async function turnLightWhite (userUrl, authHeadersActual, bodyLightIdWhite, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdWhite, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light is now white.`
+  })
+}
+
+// Check Fuel Percentage Remaining
+async function checkFuelStatus (userUrl, authHeadersActual, event) {
+  const fuelState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_fuel_level`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your fuel percentage remaining is ${fuelState.data.state}%.`
+  })
+}
+
+// Check Vehicle Range Remaining (in km)
+async function checkCarRange (userUrl, authHeadersActual, event) {
+  const rangeState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_range`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Your vehicle range left in kilometers is ${rangeState.data.state}.`
   })
 }
 
