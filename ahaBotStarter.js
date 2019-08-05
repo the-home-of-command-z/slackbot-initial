@@ -472,15 +472,27 @@ async function getStates (userUrl, authHeadersActual, event) {
   const entityArray = []
   for (const entity of statesData.data) {
     if (entity.attributes.friendly_name && entity.state !== 'unknown') {
-      entityArray.push({"color": "#228B22",
+      if(entity.state === 'on'){
+      entityArray.push({"color": "#2fcc1b",
         "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
       })
+    }
+    else if(entity.state === 'off'){
+      entityArray.push({"color": "#c21913",
+        "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+      })
+    }
+    else {
+      entityArray.push({"color": "#2413c2",
+        "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+      })
+    }
     }
   }
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now set to low brightness.`, 
+    text: `Here is the current state of your home and all connected devices:`, 
     attachments: entityArray})
   return entityArray
 }
