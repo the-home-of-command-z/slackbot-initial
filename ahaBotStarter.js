@@ -313,7 +313,7 @@ async function whatDevices (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
   console.log(statesData)
   const entityArray = []
-  for (const entity of statesData) {
+  for (const entity of statesData.data) {
     entityArray.push(entity.entity_id)
   }
   const lightResult = entityArray.filter(s => s.includes('light.'))
