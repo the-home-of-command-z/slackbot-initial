@@ -319,7 +319,7 @@ async function getStates (userUrl, authHeadersActual) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    // text: '', 
+    text: `Here is the current state of your home and all connected devices:`, 
     attachments: entityArray})
   return entityArray
 }
