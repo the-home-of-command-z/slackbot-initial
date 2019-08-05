@@ -481,7 +481,7 @@ async function getStates (userUrl, authHeadersActual, event) {
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `Your light is now set to low brightness.`, 
-    attachment: entityArray})
+    attachments: entityArray})
   return entityArray
 }
 
