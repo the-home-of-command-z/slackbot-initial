@@ -26,6 +26,8 @@ const bodyLightIdStop = { entity_id: 'light.living_room', effect: 'Stop' }
 const bodyLightIdFullBright = { entity_id: 'light.living_room', brightness: 255 }
 const bodyLightIdMedBright = { entity_id: 'light.living_room', brightness: 128 }
 const bodyLightIdLowBright = { entity_id: 'light.living_room', brightness: 64 }
+const bodyMediaPlayerId = { entity_id: 'media_player.md_bedroom_display' }
+const bodyClimateId = { entity_id: 'climate'}
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
@@ -85,6 +87,36 @@ slackEvents.on('message', async (event) => {
   }
   if (event.text.includes('light_low')) {
     turnLightLowBright(userUrl, authHeadersActual, bodyLightIdLowBright, event)
+  }
+  if (event.text.includes('media_status')) {
+    checkMediaStatus(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('media_play')) {
+    turnMediaPlay(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('media_pause')) {
+    turnMediaPause(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('media_stop')) {
+    turnMediaStop(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('volume_mute')) {
+    turnMediaMute(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('volume_up')) {
+    turnMediaUp(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('volume_down')) {
+    turnMediaDown(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('climate_status')) {
+    checkClimateStatus(userUrl, authHeadersActual, bodyClimateId, event)
+  }
+  if (event.text.includes('temperature_up')) {
+    turnClimateUp(userUrl, authHeadersActual, bodyClimateId, event)
+  }
+  if (event.text.includes('tempearture_down')) {
+    turnClimateDown(userUrl, authHeadersActual, bodyClimateId, event)
   }
   })
 
@@ -285,6 +317,125 @@ async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBri
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `Your light is now set to low brightness.`  })
+}
+async function checkMediaStatus (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.md_bedroom_display`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is ${media_playerState.data.state}`
+  })
+}
+async function turnMediaPlay (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is now playing`
+  })
+}
+async function turnMediaPause (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is now paused`
+  })
+}
+async function turnMediaStop (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is now stopped`
+  })
+}
+async function turnMediaUp (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player volume was raised`
+  })
+}
+async function turnMediaDown (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player volume was lowered`
+  })
+}
+async function turnMediaMute (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player was muted`
+  })
+}
+async function checkClimateStatus (userUrl, authHeadersActual, event) {
+  let climateState = await axios.get(`https://${userUrl}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your temperature is ${climateState.data.temperature}`
+  })
+}
+
+async function turnClimateUp (userURL, authHeadersActual, event) {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  let currentTemp = climateState.data.temperature
+  currentTemp += 1
+  const sendTemp = {tempearture: `${currentTemp}`}
+  await axios.post(`https://${userURL}/api/services/climate.set_temperature`, sendTemp, {
+    headers: authHeadersActual
+  })
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your temperature is now set to ${climateState.data.temperature}`
+  })
+}
+async function turnClimateDown (userURL, authHeadersActual, event) {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  let currentTemp = climateState.data.tempearture
+  currentTemp -= 1
+  const sendTemp = {temperature: `${currentTemp}`}
+  await axios.post(`https://${userURL}/api/services/climate.set_temperature`, sendTemp, {
+    headers: authHeadersActual
+  })
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your temperature is now set to ${climateState.data.temperature}`
+  })
 }
 
 async function getStatesInfo (userUrl, authHeadersActual) {
