@@ -5,7 +5,8 @@
   "description": "first test bot with slack node sdk",
   "main": "ahaBotStarter.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ahaBotStarter.js"
   },
   "author": "zeke hart",
   "license": "MIT",
