@@ -39,7 +39,7 @@ slackEvents.on('message', async (event) => {
   // listeners begin
 
   if (event.text.includes('test5')) {
-    getStates(userUrl, authHeadersActual)
+    getStates(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('what_devices')) {
     whatDevices(userUrl, authHeadersActual, event)
@@ -467,7 +467,7 @@ async function getStatesInfo (userUrl, authHeadersActual) {
   return StatesInfo
 }
 
-async function getStates (userUrl, authHeadersActual) {
+async function getStates (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
   const entityArray = []
   for (const entity of statesData.data) {
