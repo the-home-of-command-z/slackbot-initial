@@ -319,7 +319,7 @@ async function getStates (userUrl, authHeadersActual) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now set to low brightness.`, 
+    // text: '', 
     attachments: entityArray})
   return entityArray
 }
