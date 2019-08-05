@@ -43,6 +43,18 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('what_devices')) {
     whatDevices(userUrl, authHeadersActual, event)
   }
+  if (event.text.includes('what_lights')) {
+    whatLights(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_swtiches')) {
+    whatSwitches(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_therm')) {
+    whatTherm(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_media')) {
+    whatMedia(userUrl, authHeadersActual, event)
+  }
   if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
   }
@@ -486,6 +498,90 @@ async function whatDevices (userUrl, authHeadersActual, event) {
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `I can control your smart lighting${ifLight}\nI can control your smart plugs and outlets${ifSwitch}\nI can control your thermostat${ifTherm}\nI can control your smart media player(s)${ifMedia}`
+  })
+}
+
+async function whatLights (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('light.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const light of entityArray) {
+    entityString += `${light}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected lights available to control: ${entityString}`
+  })
+}
+
+async function whatSwitches (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('switch.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const switch of entityArray) {
+    entityString += `${switch}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected smart plugs (or outlets) available to control: ${entityString}`
+  })
+}
+
+async function whatTherm (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('climate.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const climate of entityArray) {
+    entityString += `${climate}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected thermostats available to control: ${entityString}`
+  })
+}
+
+async function whatMedia (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('media_player.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const media of entityArray) {
+    entityString += `${media}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected media players available to control: ${entityString}`
   })
 }
 
