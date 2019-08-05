@@ -318,8 +318,8 @@ async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBri
     icon_emoji: ':cat:',
     text: `Your light is now set to low brightness.`  })
 }
-async function checkMediaStatus (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.md_bedroom_display`, bodyMediaPlayerId, {
+async function checkMediaStatus (userUrl, authHeadersActual, event) {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.md_bedroom_display`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
