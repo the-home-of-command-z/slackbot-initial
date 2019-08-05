@@ -294,6 +294,24 @@ async function getStatesInfo (userUrl, authHeadersActual) {
   return StatesInfo
 }
 
+function getOnStates (statesData) {
+  const entityArray = []
+  for (const entity of statesData.data) {
+    if (entity.attributes.friendly_name && entity.state === 'on') {
+      entityArray.push({"color": "#2fcc1b",
+      "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+    })
+    }
+  }
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Here are your devices that are switched on!`, 
+    attachments: entityArray})
+  return entityArray
+}
+
+
 async function getStates (userUrl, authHeadersActual) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
   const entityArray = []
