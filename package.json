@@ -3,9 +3,10 @@
   "name": "slacknodesdk_test",
   "version": "1.0.1",
   "description": "first test bot with slack node sdk",
-  "main": "mvp.js",
+  "main": "ahaBotStarter.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ahaBotStarter.js"
   },
   "author": "zeke hart",
   "license": "MIT",
