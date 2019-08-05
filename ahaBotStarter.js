@@ -20,12 +20,15 @@ const bodySwitchId = { entity_id: 'switch.living_room' }
 const bodyLightIdRed = { entity_id: 'light.living_room', rgb_color: [255, 0, 0] }
 const bodyLightIdGreen = { entity_id: 'light.living_room', rgb_color: [0, 255, 0] }
 const bodyLightIdBlue = { entity_id: 'light.living_room', rgb_color: [0, 0, 255] }
+const bodyLightIdWhite = { entity_id: 'light.living_room', rgb_color: [255, 255, 255] }
 const bodyLightIdPolice = { entity_id: 'light.living_room', effect: 'Police' }
 const bodyLightIdRandom = { entity_id: 'light.living_room', effect: 'Fast Random Loop' }
 const bodyLightIdStop = { entity_id: 'light.living_room', effect: 'Stop' }
 const bodyLightIdFullBright = { entity_id: 'light.living_room', brightness: 255 }
 const bodyLightIdMedBright = { entity_id: 'light.living_room', brightness: 128 }
 const bodyLightIdLowBright = { entity_id: 'light.living_room', brightness: 64 }
+const bodyMediaPlayerId = { entity_id: 'media_player.md_bedroom_display' }
+const bodyClimateId = { entity_id: 'climate'}
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
@@ -36,10 +39,22 @@ slackEvents.on('message', async (event) => {
   // listeners begin
 
   if (event.text.includes('test5')) {
-    getStates(userUrl, authHeadersActual)
+    getStates(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('what_devices')) {
     whatDevices(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_lights')) {
+    whatLights(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_swtiches')) {
+    whatSwitches(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_therm')) {
+    whatTherm(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_media')) {
+    whatMedia(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
@@ -85,6 +100,45 @@ slackEvents.on('message', async (event) => {
   }
   if (event.text.includes('light_low')) {
     turnLightLowBright(userUrl, authHeadersActual, bodyLightIdLowBright, event)
+  }
+  if (event.text.includes('media_status')) {
+    checkMediaStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('media_play')) {
+    turnMediaPlay(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('media_pause')) {
+    turnMediaPause(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('media_stop')) {
+    turnMediaStop(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('volume_mute')) {
+    turnMediaMute(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('volume_up')) {
+    turnMediaUp(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('volume_down')) {
+    turnMediaDown(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+  }
+  if (event.text.includes('climate_status')) {
+    checkClimateStatus(userUrl, authHeadersActual, bodyClimateId, event)
+  }
+  if (event.text.includes('temperature_up')) {
+    turnClimateUp(userUrl, authHeadersActual, bodyClimateId, event)
+  }
+  if (event.text.includes('tempearture_down')) {
+    turnClimateDown(userUrl, authHeadersActual, bodyClimateId, event)
+  }
+  if (event.text.includes('light_white')) {
+    turnLightWhite(userUrl, authHeadersActual, bodyLightIdWhite, event)
+  }
+  if (event.text.includes('fuel_status')) {
+    checkFuelStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('car_range')) {
+    checkCarRange(userUrl, authHeadersActual, event)
   }
   })
 
@@ -286,6 +340,125 @@ async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBri
     icon_emoji: ':cat:',
     text: `Your light is now set to low brightness.`  })
 }
+async function checkMediaStatus (userUrl, authHeadersActual, event) {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.md_bedroom_display`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is ${media_playerState.data.state}`
+  })
+}
+async function turnMediaPlay (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is now playing`
+  })
+}
+async function turnMediaPause (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is now paused`
+  })
+}
+async function turnMediaStop (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player is now stopped`
+  })
+}
+async function turnMediaUp (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player volume was raised`
+  })
+}
+async function turnMediaDown (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player volume was lowered`
+  })
+}
+async function turnMediaMute (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, bodyMediaPlayerId, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your media player was muted`
+  })
+}
+async function checkClimateStatus (userUrl, authHeadersActual, event) {
+  let climateState = await axios.get(`https://${userUrl}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your temperature is ${climateState.data.temperature}`
+  })
+}
+
+async function turnClimateUp (userURL, authHeadersActual, event) {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  let currentTemp = climateState.data.temperature
+  currentTemp += 1
+  const sendTemp = {tempearture: `${currentTemp}`}
+  await axios.post(`https://${userURL}/api/services/climate.set_temperature`, sendTemp, {
+    headers: authHeadersActual
+  })
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your temperature is now set to ${climateState.data.temperature}`
+  })
+}
+async function turnClimateDown (userURL, authHeadersActual, event) {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  let currentTemp = climateState.data.tempearture
+  currentTemp -= 1
+  const sendTemp = {temperature: `${currentTemp}`}
+  await axios.post(`https://${userURL}/api/services/climate.set_temperature`, sendTemp, {
+    headers: authHeadersActual
+  })
+  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your temperature is now set to ${climateState.data.temperature}`
+  })
+}
 
 async function getStatesInfo (userUrl, authHeadersActual) {
   const StatesInfo = await axios.get(`https://${userUrl}/api/states`, {
@@ -294,7 +467,7 @@ async function getStatesInfo (userUrl, authHeadersActual) {
   return StatesInfo
 }
 
-async function getStates (userUrl, authHeadersActual) {
+async function getStates (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
   const entityArray = []
   for (const entity of statesData.data) {
@@ -352,6 +525,126 @@ async function whatDevices (userUrl, authHeadersActual, event) {
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `I can control your smart lighting${ifLight}\nI can control your smart plugs and outlets${ifSwitch}\nI can control your thermostat${ifTherm}\nI can control your smart media player(s)${ifMedia}`
+  })
+}
+
+async function whatLights (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('light.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const light of entityArray) {
+    entityString += `${light}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected lights available to control: ${entityString}`
+  })
+}
+
+async function whatSwitches (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('switch.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const plug of entityArray) {
+    entityString += `${plug}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected smart plugs (or outlets) available to control: ${entityString}`
+  })
+}
+
+async function whatTherm (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('climate.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const climate of entityArray) {
+    entityString += `${climate}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected thermostats available to control: ${entityString}`
+  })
+}
+
+async function whatMedia (userUrl, authHeadersActual, event) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  console.log(statesData)
+  const entityArray = []
+  let entityString = ''
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('media_player.')) {
+      entityArray.push(entity.attributes.friendly_name)
+    }
+  }
+  for (const media of entityArray) {
+    entityString += `${media}, `
+  }
+  entityString = entityString.slice(0, -2)
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `These are the following connected media players available to control: ${entityString}`
+  })
+}
+
+// Turn Light White
+async function turnLightWhite (userUrl, authHeadersActual, bodyLightIdWhite, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdWhite, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light is now white.`
+  })
+}
+
+// Check Fuel Percentage Remaining
+async function checkFuelStatus (userUrl, authHeadersActual, event) {
+  const fuelState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_fuel_level`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your fuel percentage remaining is ${fuelState.data.state}%.`
+  })
+}
+
+// Check Vehicle Range Remaining (in km)
+async function checkCarRange (userUrl, authHeadersActual, event) {
+  const rangeState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_range`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':cat:',
+      text: `Your vehicle range left in kilometers is ${rangeState.data.state}.`
   })
 }
 
