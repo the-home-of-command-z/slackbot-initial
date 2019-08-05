@@ -532,8 +532,8 @@ async function whatSwitches (userUrl, authHeadersActual, event) {
       entityArray.push(entity.attributes.friendly_name)
     }
   }
-  for (const switch of entityArray) {
-    entityString += `${switch}, `
+  for (const plug of entityArray) {
+    entityString += `${plug}, `
   }
   entityString = entityString.slice(0, -2)
   web.chat.postMessage({
