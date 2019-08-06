@@ -30,7 +30,7 @@ const bodyLightIdLowBright = { entity_id: 'light.living_room', brightness: 64 }
 const bodyMediaPlayerId = { entity_id: 'media_player.md_bedroom_display' }
 const bodyClimateId = { entity_id: 'climate'}
 
-natural.BayesClassifier.load('classifierAction.json', action, function(err, classifier) {
+natural.BayesClassifier.load('classifierAction.json', null, function(err, classifier) {
   if (err) {
     console.log(err)
   }
