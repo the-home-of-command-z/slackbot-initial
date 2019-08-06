@@ -51,8 +51,8 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('how_home')) {
     getStates(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('what_on')) {
-    getOnStates(userUrl, authHeadersActual, event)
+  // if (event.text.includes('what_on')) {
+  //   getOnStates(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('what_off')) {
     getOffStates(userUrl, authHeadersActual, event)
