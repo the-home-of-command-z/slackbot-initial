@@ -27,7 +27,7 @@ const bodyLightIdStop = { entity_id: 'light.living_room', effect: 'Stop' }
 const bodyLightIdFullBright = { entity_id: 'light.living_room', brightness: 255 }
 const bodyLightIdMedBright = { entity_id: 'light.living_room', brightness: 128 }
 const bodyLightIdLowBright = { entity_id: 'light.living_room', brightness: 64 }
-const bodyMediaPlayerId = { entity_id: 'media_player.md_bedroom_display' }
+const bodyMediaPlayerId = { entity_id: 'media_player.bedroom_display' }
 const bodyClimateId = { entity_id: 'climate'}
 
 // Main bot function chain contained in here, triggered by event
@@ -338,7 +338,7 @@ async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBri
     text: `Your light is now set to low brightness.`  })
 }
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
-  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.md_bedroom_display`, {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.bedroom_display`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
