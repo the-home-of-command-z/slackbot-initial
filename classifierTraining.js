@@ -371,8 +371,15 @@ classifierAction.addDocument('run the a/c', 'temperature_down')
 
 classifierAction.train()
 
+classifierAction.save('classifierAction.json', function (err, classifier) {
+    if (err) {
+      console.log(err)
+    }
+    // the classifier is saved to the classifier.json file!
+  })
+
 // console.log(classifierAction.classify(//'test words here')
 
-classifierAction.save('classifierAction.json', function (classifier) {
-  // the classifier is saved to the classifier.json file!
-})
+// classifierAction.save('classifierAction.json', function (classifier) {
+//   // the classifier is saved to the classifier.json file!
+// })
