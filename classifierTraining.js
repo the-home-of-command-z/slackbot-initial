@@ -170,31 +170,33 @@ classifierAction.addDocument('what is the status of the fan', 'switch_status')
 classifierAction.addDocument('turn light red', 'light_red')
 classifierAction.addDocument('make light red', 'light_red')
 classifierAction.addDocument('want light to be red', 'light_red')
-classifierAction.addDocument('should be red', 'light_red')
 classifierAction.addDocument('switch to red', 'light_red')
 classifierAction.addDocument('is light red', 'light_red')
 classifierAction.addDocument('can be red', 'light_red')
 classifierAction.addDocument('use red light', 'light_red')
+classifierAction.addDocument('should be red', 'light_red')
 
 //Light Green Classifieres
 classifierAction.addDocument('turn light green', 'light_green')
 classifierAction.addDocument('make light green', 'light_green')
 classifierAction.addDocument('want light to be green', 'light_green')
 classifierAction.addDocument('should be green', 'light_green')
-classifierAction.addDocument('switch to green', 'light_green')
 classifierAction.addDocument('is light green', 'light_green')
 classifierAction.addDocument('can be green', 'light_green')
 classifierAction.addDocument('use green light', 'light_green')
+classifierAction.addDocument('switch to green', 'light_green')
+
 
 //Light Blue Classifieres
 classifierAction.addDocument('turn light blue', 'light_blue')
 classifierAction.addDocument('make light blue', 'light_blue')
 classifierAction.addDocument('want light to be blue', 'light_blue')
 classifierAction.addDocument('should be blue', 'light_blue')
-classifierAction.addDocument('switch to blue', 'light_blue')
 classifierAction.addDocument('is light blue', 'light_blue')
 classifierAction.addDocument('can be blue', 'light_blue')
 classifierAction.addDocument('use blue light', 'light_blue')
+classifierAction.addDocument('switch to blue', 'light_blue')
+
 
 //Media Status Classifiers
 classifierAction.addDocument('is the media player on', 'media_status')
