@@ -36,7 +36,7 @@ slackEvents.on('message', async (event) => {
   const userInfoResponse = await getUserInfo(event)
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
-  natural.BayesClassifier.load('classifierAction.json', null, function(err, classifier) {
+  natural.BayesClassifier.load('simpleClassifierAction.json', null, function(err, classifier) {
     if (err) {
       console.log(err)
     }
