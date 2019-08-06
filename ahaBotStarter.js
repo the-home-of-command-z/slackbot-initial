@@ -30,12 +30,20 @@ const bodyLightIdLowBright = { entity_id: 'light.living_room', brightness: 64 }
 const bodyMediaPlayerId = { entity_id: 'media_player.md_bedroom_display' }
 const bodyClimateId = { entity_id: 'climate'}
 
+natural.BayesClassifier.load('classifierAction.json', action, function(classifierAction) {
+})
+
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
   const userInfoResponse = await getUserInfo(event)
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
-
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':hypnotoad:',
+    text: classifierAction.classify(event.text)
+  })
+  
   // listeners begin
 
   if (event.text.includes('how_home')) {
