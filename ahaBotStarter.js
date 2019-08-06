@@ -41,7 +41,7 @@ slackEvents.on('message', async (event) => {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':hypnotoad:',
-    text: classifierAction.classify(event.text)
+    text: `${classifierAction.classify(event.text)} hi2u`
   })
   
   // listeners begin
