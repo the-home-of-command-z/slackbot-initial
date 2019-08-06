@@ -38,6 +38,8 @@ slackEvents.on('message', async (event) => {
   const userInfoResponse = await getUserInfo(event)
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
+  console.log(classifierAction.classify(event.text))
+  console.log(classifierAction.classify('turn that switch off, brah'))
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':hypnotoad:',
