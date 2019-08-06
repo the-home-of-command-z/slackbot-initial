@@ -307,16 +307,7 @@ async function turnLightStop (userUrl, authHeadersActual, bodyLightIdStop, event
     text: `Your light effect has stopped.`
   })
 }
-async function turnLightStop (userUrl, authHeadersActual, bodyLightIdStop, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdStop, {
-    headers: authHeadersActual
-  })
-  web.chat.postMessage({
-    channel: event.channel,
-    icon_emoji: ':cat:',
-    text: `Your light effect has stopped.`
-  })
-}
+
 async function turnLightFullBright (userUrl, authHeadersActual, bodyLightIdFullBright, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdFullBright, {
     headers: authHeadersActual
@@ -586,7 +577,7 @@ async function whatLights (userUrl, authHeadersActual, event) {
   entityString = entityString.slice(0, -2)
   web.chat.postMessage({
     channel: event.channel,
-    icon_emoji: ':cat:',
+    // icon_emoji: ':cat:',
     text: `These are the following connected lights available to control: ${entityString}`
   })
 }
