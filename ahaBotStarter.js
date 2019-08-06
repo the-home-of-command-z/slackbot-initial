@@ -32,10 +32,22 @@ const bodyClimateId = { entity_id: 'climate'}
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
+  console.log('anything I want')
   const userInfoResponse = await getUserInfo(event)
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
-
+  natural.BayesClassifier.load('simpleClassifierAction.json', null, function(err, classifier) {
+    if (err) {
+      console.log(err)
+    }
+    web.chat.postMessage({
+      channel: event.channel,
+      icon_emoji: ':hypnotoad:',
+      text: classifier.classify(event.text)
+    })
+  })
+  
+  
   // listeners begin
 
   if (event.text.includes('how_home')) {
