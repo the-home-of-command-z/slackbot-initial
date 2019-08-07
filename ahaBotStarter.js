@@ -49,7 +49,12 @@ slackEvents.on('message', async (event) => {
   
   
   // listeners begin
-
+  if (event.text.includes('living room') || event.text.includes('livingroom')) {
+    web.chat.postMessage({
+      channel: event.channel,
+      text: `Stuff works, yo!`
+    })
+  }
   if (event.text.includes('how_home')) {
     getStates(userUrl, authHeadersActual, event)
   }
