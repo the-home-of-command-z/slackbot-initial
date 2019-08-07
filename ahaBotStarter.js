@@ -190,7 +190,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your ${lightstate.attributes.friendly_name} light is ${lightState.data.state}`
+    text: `Your ${lightState.attributes.friendly_name} light is ${lightState.data.state}`
   })
 }
 
