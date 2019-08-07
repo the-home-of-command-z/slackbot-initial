@@ -511,7 +511,7 @@ async function turnLightUp (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, sendBrightness, {
     headers: authHeadersActual
   })
-  let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+  lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -530,7 +530,7 @@ async function turnLightDown (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, sendBrightness, {
     headers: authHeadersActual
   })
-  let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+  lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
