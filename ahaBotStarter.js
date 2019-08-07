@@ -40,10 +40,10 @@ slackEvents.on('message', async (event) => {
     if (err) {
       console.log(err)
     }
-    web.chat.postMessage({
-      channel: event.channel,
-      icon_emoji: ':hypnotoad:',
-      text: classifier.classify(event.text)
+    // web.chat.postMessage({
+    //   channel: event.channel,
+    //   icon_emoji: ':hypnotoad:',
+    //   text: classifier.classify(event.text)
     })
   })
   
