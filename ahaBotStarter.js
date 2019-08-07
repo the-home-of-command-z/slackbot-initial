@@ -505,7 +505,7 @@ async function turnLightUp (userUrl, authHeadersActual, event) {
   let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
-  let currentBrightness = lightState.data.brightness
+  let currentBrightness = lightState.data.attributes.brightness
   currentBrightness += 50
   const sendBrightness = {brightness: `${currentBrightness}`}
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, sendBrightness, {
@@ -524,7 +524,7 @@ async function turnLightDown (userUrl, authHeadersActual, event) {
   let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
-  let currentBrightness = lightState.data.brightness
+  let currentBrightness = lightState.data.attributes.brightness
   currentBrightness -= 50
   const sendBrightness = {brightness: `${currentBrightness}`}
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, sendBrightness, {
