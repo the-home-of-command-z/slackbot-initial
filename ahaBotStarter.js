@@ -266,8 +266,8 @@ async function turnSwitchOn (userUrl, authHeadersActual, event) {
     headers: authHeadersActual
   })
   web.chat.postMessage({
-      channel: event.channel,
-        text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
+    channel: event.channel,
+    text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
   })
 }
 async function turnLightBlue (userUrl, authHeadersActual, event) {
@@ -303,8 +303,8 @@ async function turnSwitchOff (userUrl, authHeadersActual, event) {
     headers: authHeadersActual
   })
   web.chat.postMessage({
-      channel: event.channel,
-        text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
+    channel: event.channel,
+    text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
   })
 }
 async function turnLightRandom (userUrl, authHeadersActual, event) {
