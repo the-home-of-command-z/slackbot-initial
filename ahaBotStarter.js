@@ -119,6 +119,12 @@ slackEvents.on('message', async (event) => {
   if (event.text.includes('light_low')) {
     turnLightLowBright(userUrl, authHeadersActual, event)
   }
+  if (event.text.includes('light_up')) {
+    turnLightUp(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_down')) {
+    turnLightDown(userUrl, authHeadersActual, event)
+  }
   if (event.text.includes('media_status')) {
     checkMediaStatus(userUrl, authHeadersActual, event)
   }
@@ -466,6 +472,44 @@ async function turnClimateDown (userURL, authHeadersActual, event) {
     channel: event.channel,
     icon_emoji: ':cat:',
     text: `Your temperature is now set to ${climateState.data.temperature}`
+  })
+}
+async function turnLightUp (userUrl, authHeadersActual, event) {
+  let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
+  let currentBrightness = lightState.data.brightness
+  currentBrightness += 50
+  const sendBrightness = {brightness: `${currentBrightness}`}
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, sendBrightness, {
+    headers: authHeadersActual
+  })
+  let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light's brightness is now set to ${lightState.data.brightness}`
+  })
+}
+async function turnLightDown (userUrl, authHeadersActual, event) {
+  let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
+  let currentBrightness = lightState.data.brightness
+  currentBrightness -= 50
+  const sendBrightness = {brightness: `${currentBrightness}`}
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, sendBrightness, {
+    headers: authHeadersActual
+  })
+  let lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    icon_emoji: ':cat:',
+    text: `Your light's brightness is now set to ${lightState.data.brightness}`
   })
 }
 
