@@ -210,7 +210,7 @@ async function turnLightOn (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now ${lightState.data.state}`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now ${lightState.data.state}`
   })
 }
 
@@ -221,7 +221,7 @@ async function checkSwitchStatus (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your switch is ${switchState.data.state}`
+    text: `Your ${switchState.data.attributes.friendly_name} switch is ${switchState.data.state}`
   })
 }
 async function turnLightOff (userUrl, authHeadersActual, event) {
@@ -234,27 +234,33 @@ async function turnLightOff (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now ${lightState.data.state}`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now ${lightState.data.state}`
   })
 }
 async function turnLightRed (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [255, 0, 0] }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now red.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now red.`
   })
 }
 async function turnLightGreen (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [0, 255, 0] }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now green.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now green.`
   })
 }
 
@@ -268,27 +274,33 @@ async function turnSwitchOn (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
       channel: event.channel,
       icon_emoji: ':cat:',
-      text: `Your switch is now ${switchState.data.state}`
+      text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
   })
 }
 async function turnLightBlue (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [0, 0, 255] }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now blue.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now blue.`
   })
 }
 async function turnLightPolice (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, effect: 'Police' }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is displaying a police strobe effect.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is displaying a police strobe effect.`
   })
 }
 
@@ -302,27 +314,33 @@ async function turnSwitchOff (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
       channel: event.channel,
       icon_emoji: ':cat:',
-      text: `Your switch is now ${switchState.data.state}`
+      text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
   })
 }
 async function turnLightRandom (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, effect: 'Fast Random Loop' }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is displaying a random light loop.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is displaying a random light loop.`
   })
 }
 async function turnLightStop (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, effect: 'Stop' }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light effect has stopped.`
+    text: `Your ${lightState.data.attributes.friendly_name} light effect has stopped.`
   })
 }
 
@@ -330,30 +348,39 @@ async function turnLightFullBright (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, brightness: 255 }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now set to full brightness.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now set to full brightness.`
   })
 }
 async function turnLightMedBright (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, brightness: 128 }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now set to medium brightness.`
+    text: `Your ${lightState.data.attributes.friendly_name} light is now set to medium brightness.`
   })
 }
 async function turnLightLowBright (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, brightness: 64 }, {
     headers: authHeadersActual
   })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
+    headers: authHeadersActual
+  })
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is now set to low brightness.`  })
+    text: `Your ${lightState.data.attributes.friendly_name} light is now set to low brightness.`  })
 }
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
   const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.bedroom_display`, {
@@ -490,7 +517,7 @@ async function turnLightUp (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light's brightness is now set to ${lightState.data.brightness}`
+    text: `Your ${lightState.data.attributes.friendly_name} light's brightness was increased by 20%`
   })
 }
 async function turnLightDown (userUrl, authHeadersActual, event) {
@@ -509,7 +536,7 @@ async function turnLightDown (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light's brightness is now set to ${lightState.data.brightness}`
+    text: `Your ${lightState.data.attributes.friendly_name} light's brightness was decreased by 20%`
   })
 }
 
@@ -704,6 +731,9 @@ async function whatMedia (userUrl, authHeadersActual, event) {
 // Turn Light White
 async function turnLightWhite (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [255, 255, 255] }, {
+    headers: authHeadersActual
+  })
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
