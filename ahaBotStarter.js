@@ -14,8 +14,9 @@ var ifLight = ' if you connect supported smart lighting to Home Assistant.'
 var ifSwitch = ' if you connect supported smart plugs or outlets to Home Assistant.'
 var ifTherm = ' if you connect supported smart thermostats to Home Assistant.'
 var ifMedia = ' if you connect supported media players to Home Assistant.'
+var instance = ''
 // replace the following hard-coded values with classification
-const bodyLightId = { entity_id: 'light.living_room' }
+const bodyLightId = { entity_id: `light.${instance}` }
 const bodySwitchId = { entity_id: 'switch.living_room' }
 const bodyLightIdRed = { entity_id: 'light.living_room', rgb_color: [255, 0, 0] }
 const bodyLightIdGreen = { entity_id: 'light.living_room', rgb_color: [0, 255, 0] }
@@ -50,10 +51,10 @@ slackEvents.on('message', async (event) => {
   
   // listeners begin
   if (event.text.includes('living room') || event.text.includes('livingroom')) {
-    web.chat.postMessage({
-      channel: event.channel,
-      text: `Stuff works, yo!`
-    })
+    instance = 'living_room'
+  }
+  if (event.text.includes('bed room') || event.text.includes('bedroom')) {
+    instance = 'bedroom'
   }
   if (event.text.includes('how_home')) {
     getStates(userUrl, authHeadersActual, event)
@@ -203,7 +204,7 @@ async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightId, {
     headers: authHeadersActual
   })
-  const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
