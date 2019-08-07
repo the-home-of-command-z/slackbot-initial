@@ -36,15 +36,15 @@ slackEvents.on('message', async (event) => {
   const userInfoResponse = await getUserInfo(event)
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
-  natural.BayesClassifier.load('simpleClassifierAction.json', null, function(err, classifier) {
-    if (err) {
-      console.log(err)
-    }
-    // web.chat.postMessage({
-    //   channel: event.channel,
-    //   icon_emoji: ':hypnotoad:',
-    //   text: classifier.classify(event.text)
-    })
+  // natural.BayesClassifier.load('simpleClassifierAction.json', null, function(err, classifier) {
+  //   if (err) {
+  //     console.log(err)
+  //   }
+  //   web.chat.postMessage({
+  //     channel: event.channel,
+  //     icon_emoji: ':hypnotoad:',
+  //     text: classifier.classify(event.text)
+  //   })
   })
   
   
