@@ -190,7 +190,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your light is ${lightState.data.state}`
+    text: `Your ${lightstate.attributes.friendly_name} light is ${lightState.data.state}`
   })
 }
 
@@ -218,7 +218,7 @@ async function checkSwitchStatus (userUrl, authHeadersActual, event) {
     text: `Your switch is ${switchState.data.state}`
   })
 }
-async function turnLightOff (userUrl, authHeadersActual, bodyLightId, event) {
+async function turnLightOff (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_off`, { entity_id: `light.${instance}` }, {
     headers: authHeadersActual
   })
