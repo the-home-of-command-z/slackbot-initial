@@ -14,9 +14,9 @@ var ifLight = ' if you connect supported smart lighting to Home Assistant.'
 var ifSwitch = ' if you connect supported smart plugs or outlets to Home Assistant.'
 var ifTherm = ' if you connect supported smart thermostats to Home Assistant.'
 var ifMedia = ' if you connect supported media players to Home Assistant.'
-var instance = ''
+var instance = 'living_room'
 // replace the following hard-coded values with classification
-const bodyLightId = { entity_id: `light.${instance}` }
+var bodyLightId = { entity_id: `light.${instance}` }
 const bodySwitchId = { entity_id: 'switch.living_room' }
 const bodyLightIdRed = { entity_id: 'light.living_room', rgb_color: [255, 0, 0] }
 const bodyLightIdGreen = { entity_id: 'light.living_room', rgb_color: [0, 255, 0] }
@@ -201,7 +201,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
 }
 
 async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightId, {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}` }, {
     headers: authHeadersActual
   })
   const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
