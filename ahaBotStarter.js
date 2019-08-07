@@ -219,7 +219,7 @@ async function checkSwitchStatus (userUrl, authHeadersActual, event) {
   })
 }
 async function turnLightOff (userUrl, authHeadersActual, bodyLightId, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_off`, { entity_id: `light.${instance}, {
+  await axios.post(`https://${userUrl}/api/services/light/turn_off`, { entity_id: `light.${instance}`, {
     headers: authHeadersActual
   })
   const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
