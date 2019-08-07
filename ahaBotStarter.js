@@ -15,21 +15,6 @@ var ifSwitch = ' if you connect supported smart plugs or outlets to Home Assista
 var ifTherm = ' if you connect supported smart thermostats to Home Assistant.'
 var ifMedia = ' if you connect supported media players to Home Assistant.'
 var instance = 'living_room'
-// replace the following hard-coded values with classification
-var bodyLightId = { entity_id: `light.${instance}` }
-const bodySwitchId = { entity_id: 'switch.living_room' }
-const bodyLightIdRed = { entity_id: 'light.living_room', rgb_color: [255, 0, 0] }
-const bodyLightIdGreen = { entity_id: 'light.living_room', rgb_color: [0, 255, 0] }
-const bodyLightIdBlue = { entity_id: 'light.living_room', rgb_color: [0, 0, 255] }
-const bodyLightIdWhite = { entity_id: 'light.living_room', rgb_color: [255, 255, 255] }
-const bodyLightIdPolice = { entity_id: 'light.living_room', effect: 'Police' }
-const bodyLightIdRandom = { entity_id: 'light.living_room', effect: 'Fast Random Loop' }
-const bodyLightIdStop = { entity_id: 'light.living_room', effect: 'Stop' }
-const bodyLightIdFullBright = { entity_id: 'light.living_room', brightness: 255 }
-const bodyLightIdMedBright = { entity_id: 'light.living_room', brightness: 128 }
-const bodyLightIdLowBright = { entity_id: 'light.living_room', brightness: 64 }
-const bodyMediaPlayerId = { entity_id: 'media_player.bedroom_display' }
-const bodyClimateId = { entity_id: 'climate'}
 
 // Main bot function chain contained in here, triggered by event
 slackEvents.on('message', async (event) => {
@@ -50,11 +35,20 @@ slackEvents.on('message', async (event) => {
   
   
   // listeners begin
-  if (event.text.includes('living room') || event.text.includes('livingroom')) {
+  if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
     instance = 'living_room'
   }
-  if (event.text.includes('bed room') || event.text.includes('bedroom')) {
+  if (event.text.includes('bed room') || event.text.includes('bedroom') || event.text.includes('bed_room')) {
     instance = 'bedroom'
+  }
+  if (event.text.includes('bath room') || event.text.includes('bathroom') || event.text.includes('bath_room')) {
+    instance = 'bathroom'
+  }
+  if (event.text.includes('kitchen')) {
+    instance = 'kitchen'
+  }
+  if (event.text.includes('office')) {
+    instance = 'office'
   }
   if (event.text.includes('how_home')) {
     getStates(userUrl, authHeadersActual, event)
@@ -84,79 +78,79 @@ slackEvents.on('message', async (event) => {
     checkLightStatus(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_on')) {
-    turnLightOn(userUrl, authHeadersActual, bodyLightId, event)
+    turnLightOn(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('switch_status')) {
     checkSwitchStatus(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('switch_on')) {
-    turnSwitchOn(userUrl, authHeadersActual, bodySwitchId, event)
+    turnSwitchOn(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('switch_off')) {
-    turnSwitchOff(userURL, authHeadersActual, bodySwitchId, event)
+    turnSwitchOff(userURL, authHeadersActual, event)
   }
   if (event.text.includes('light_off')) {
-    turnLightOff(userUrl, authHeadersActual, bodyLightId, event)
+    turnLightOff(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_red')) {
-    turnLightRed(userUrl, authHeadersActual, bodyLightIdRed, event)
+    turnLightRed(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_green')) {
-    turnLightGreen(userUrl, authHeadersActual, bodyLightIdGreen, event)
+    turnLightGreen(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_blue')) {
-    turnLightBlue(userUrl, authHeadersActual, bodyLightIdBlue, event)
+    turnLightBlue(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('fuzz')) {
-    turnLightPolice(userUrl, authHeadersActual, bodyLightIdPolice, event)
+    turnLightPolice(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('trippy')) {
-    turnLightRandom(userUrl, authHeadersActual, bodyLightIdRandom, event)
+    turnLightRandom(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_stop')) {
-    turnLightStop(userUrl, authHeadersActual, bodyLightIdStop, event)
+    turnLightStop(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_full')) {
-    turnLightFullBright(userUrl, authHeadersActual, bodyLightIdFullBright, event)
+    turnLightFullBright(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_medium')) {
-    turnLightMedBright(userUrl, authHeadersActual, bodyLightIdMedBright, event)
+    turnLightMedBright(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_low')) {
-    turnLightLowBright(userUrl, authHeadersActual, bodyLightIdLowBright, event)
+    turnLightLowBright(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('media_status')) {
     checkMediaStatus(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('media_play')) {
-    turnMediaPlay(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    turnMediaPlay(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('media_pause')) {
-    turnMediaPause(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    turnMediaPause(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('media_stop')) {
-    turnMediaStop(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    turnMediaStop(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('volume_mute')) {
-    turnMediaMute(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    turnMediaMute(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('volume_up')) {
-    turnMediaUp(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    turnMediaUp(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('volume_down')) {
-    turnMediaDown(userUrl, authHeadersActual, bodyMediaPlayerId, event)
+    turnMediaDown(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('climate_status')) {
-    checkClimateStatus(userUrl, authHeadersActual, bodyClimateId, event)
+    checkClimateStatus(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('temperature_up')) {
-    turnClimateUp(userUrl, authHeadersActual, bodyClimateId, event)
+    turnClimateUp(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('tempearture_down')) {
-    turnClimateDown(userUrl, authHeadersActual, bodyClimateId, event)
+    turnClimateDown(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_white')) {
-    turnLightWhite(userUrl, authHeadersActual, bodyLightIdWhite, event)
+    turnLightWhite(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('fuel_status')) {
     checkFuelStatus(userUrl, authHeadersActual, event)
@@ -190,7 +184,7 @@ function makeHeader (userInfoResponse) {
   return authHeadersActual
 }
 async function checkLightStatus (userUrl, authHeadersActual, event) {
-  const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -200,7 +194,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   })
 }
 
-async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
+async function turnLightOn (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}` }, {
     headers: authHeadersActual
   })
@@ -215,7 +209,7 @@ async function turnLightOn (userUrl, authHeadersActual, bodyLightId, event) {
 }
 
 async function checkSwitchStatus (userUrl, authHeadersActual, event) {
-  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -225,10 +219,10 @@ async function checkSwitchStatus (userUrl, authHeadersActual, event) {
   })
 }
 async function turnLightOff (userUrl, authHeadersActual, bodyLightId, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_off`, bodyLightId, {
+  await axios.post(`https://${userUrl}/api/services/light/turn_off`, { entity_id: `light.${instance}, {
     headers: authHeadersActual
   })
-  const lightState = await axios.get(`https://${userUrl}/api/states/light.living_room`, {
+  const lightState = await axios.get(`https://${userUrl}/api/states/light.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -237,8 +231,8 @@ async function turnLightOff (userUrl, authHeadersActual, bodyLightId, event) {
     text: `Your light is now ${lightState.data.state}`
   })
 }
-async function turnLightRed (userUrl, authHeadersActual, bodyLightIdRed, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdRed, {
+async function turnLightRed (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [255, 0, 0] }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -247,8 +241,8 @@ async function turnLightRed (userUrl, authHeadersActual, bodyLightIdRed, event) 
     text: `Your light is now red.`
   })
 }
-async function turnLightGreen (userUrl, authHeadersActual, bodyLightIdGreen, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdGreen, {
+async function turnLightGreen (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [0, 255, 0] }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -258,11 +252,11 @@ async function turnLightGreen (userUrl, authHeadersActual, bodyLightIdGreen, eve
   })
 }
 
-async function turnSwitchOn (userUrl, authHeadersActual, bodySwitchId, event) {
-  await axios.post(`https://${userUrl}/api/services/switch/turn_on`, bodySwitchId, {
+async function turnSwitchOn (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/switch/turn_on`, { entity_id: `switch.${instance}` }, {
     headers: authHeadersActual
   })
-  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -271,8 +265,8 @@ async function turnSwitchOn (userUrl, authHeadersActual, bodySwitchId, event) {
       text: `Your switch is now ${switchState.data.state}`
   })
 }
-async function turnLightBlue (userUrl, authHeadersActual, bodyLightIdBlue, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdBlue, {
+async function turnLightBlue (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [0, 0, 255] }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -281,8 +275,8 @@ async function turnLightBlue (userUrl, authHeadersActual, bodyLightIdBlue, event
     text: `Your light is now blue.`
   })
 }
-async function turnLightPolice (userUrl, authHeadersActual, bodyLightIdPolice, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdPolice, {
+async function turnLightPolice (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, effect: 'Police' }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -292,11 +286,11 @@ async function turnLightPolice (userUrl, authHeadersActual, bodyLightIdPolice, e
   })
 }
 
-async function turnSwitchOff (userUrl, authHeadersActual, bodySwitchId, event) {
-  await axios.post(`https://${userUrl}/api/services/switch/turn_off`, bodySwitchId, {
+async function turnSwitchOff (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/switch/turn_off`, { entity_id: `switch.${instance}` }, {
     headers: authHeadersActual
   })
-  const switchState = await axios.get(`https://${userUrl}/api/states/switch.living_room`, {
+  const switchState = await axios.get(`https://${userUrl}/api/states/switch.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -305,8 +299,8 @@ async function turnSwitchOff (userUrl, authHeadersActual, bodySwitchId, event) {
       text: `Your switch is now ${switchState.data.state}`
   })
 }
-async function turnLightRandom (userUrl, authHeadersActual, bodyLightIdRandom, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdRandom, {
+async function turnLightRandom (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, effect: 'Fast Random Loop' }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -315,8 +309,8 @@ async function turnLightRandom (userUrl, authHeadersActual, bodyLightIdRandom, e
     text: `Your light is displaying a random light loop.`
   })
 }
-async function turnLightStop (userUrl, authHeadersActual, bodyLightIdStop, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdStop, {
+async function turnLightStop (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, effect: 'Stop' }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -326,8 +320,8 @@ async function turnLightStop (userUrl, authHeadersActual, bodyLightIdStop, event
   })
 }
 
-async function turnLightFullBright (userUrl, authHeadersActual, bodyLightIdFullBright, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdFullBright, {
+async function turnLightFullBright (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, brightness: 255 }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -336,8 +330,8 @@ async function turnLightFullBright (userUrl, authHeadersActual, bodyLightIdFullB
     text: `Your light is now set to full brightness.`
   })
 }
-async function turnLightMedBright (userUrl, authHeadersActual, bodyLightIdMedBright, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdMedBright, {
+async function turnLightMedBright (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, brightness: 128 }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -346,8 +340,8 @@ async function turnLightMedBright (userUrl, authHeadersActual, bodyLightIdMedBri
     text: `Your light is now set to medium brightness.`
   })
 }
-async function turnLightLowBright (userUrl, authHeadersActual, bodyLightIdLowBright, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdLowBright, {
+async function turnLightLowBright (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, brightness: 64 }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -365,8 +359,8 @@ async function checkMediaStatus (userUrl, authHeadersActual, event) {
     text: `Your media player is ${media_playerState.data.state}`
   })
 }
-async function turnMediaPlay (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, bodyMediaPlayerId, {
+async function turnMediaPlay (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -375,8 +369,8 @@ async function turnMediaPlay (userUrl, authHeadersActual, bodyMediaPlayerId, eve
     text: `Your media player is now playing`
   })
 }
-async function turnMediaPause (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, bodyMediaPlayerId, {
+async function turnMediaPause (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -385,8 +379,8 @@ async function turnMediaPause (userUrl, authHeadersActual, bodyMediaPlayerId, ev
     text: `Your media player is now paused`
   })
 }
-async function turnMediaStop (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, bodyMediaPlayerId, {
+async function turnMediaStop (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -395,8 +389,8 @@ async function turnMediaStop (userUrl, authHeadersActual, bodyMediaPlayerId, eve
     text: `Your media player is now stopped`
   })
 }
-async function turnMediaUp (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, bodyMediaPlayerId, {
+async function turnMediaUp (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -405,8 +399,8 @@ async function turnMediaUp (userUrl, authHeadersActual, bodyMediaPlayerId, event
     text: `Your media player volume was raised`
   })
 }
-async function turnMediaDown (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, bodyMediaPlayerId, {
+async function turnMediaDown (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -415,8 +409,8 @@ async function turnMediaDown (userUrl, authHeadersActual, bodyMediaPlayerId, eve
     text: `Your media player volume was lowered`
   })
 }
-async function turnMediaMute (userUrl, authHeadersActual, bodyMediaPlayerId, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, bodyMediaPlayerId, {
+async function turnMediaMute (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -664,8 +658,8 @@ async function whatMedia (userUrl, authHeadersActual, event) {
 }
 
 // Turn Light White
-async function turnLightWhite (userUrl, authHeadersActual, bodyLightIdWhite, event) {
-  await axios.post(`https://${userUrl}/api/services/light/turn_on`, bodyLightIdWhite, {
+async function turnLightWhite (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/light/turn_on`, { entity_id: `light.${instance}`, rgb_color: [255, 255, 255] }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
