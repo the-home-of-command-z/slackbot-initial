@@ -87,7 +87,7 @@ slackEvents.on('message', async (event) => {
     turnSwitchOn(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('switch_off')) {
-    turnSwitchOff(userURL, authHeadersActual, event)
+    turnSwitchOff(userUrl, authHeadersActual, event)
   }
   if (event.text.includes('light_off')) {
     turnLightOff(userUrl, authHeadersActual, event)
