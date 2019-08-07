@@ -45,7 +45,7 @@ slackEvents.on('message', async (event) => {
   //     icon_emoji: ':hypnotoad:',
   //     text: classifier.classify(event.text)
   //   })
-  })
+  // })
   
   
   // listeners begin
