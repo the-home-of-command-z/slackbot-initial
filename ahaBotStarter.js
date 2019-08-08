@@ -849,7 +849,7 @@ async function checkCarRange (userUrl, authHeadersActual, event) {
   const rangeState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_range`, {
     headers: authHeadersActual
   })
-  const rangeStateMiles = rangeState * (0.621371)
+  const rangeStateMiles = parseint(rangeState.state) * (0.621371)
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
