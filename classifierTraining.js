@@ -1,6 +1,6 @@
 const natural = require('natural')
 
-const classifierAction = new natural.BayesClassifier()
+const classifierAction = new natural.LogisticRegressionClassifier()
 // const classifierObject = new natural.BayesClassifier()
 
 // Light/Switch Turn On Classifiers
@@ -429,7 +429,7 @@ classifierAction.train()
 //   Turn the air up. (temperature_up)
 //   Turn the air down. (temperature_down)
 
-classifierAction.save('classifierActionTest1.json', function (err, classifier) {
+classifierAction.save('classifierActionTest2.json', function (err, classifier) {
   if (err) {
     console.log(err)
   }
