@@ -64,18 +64,6 @@ slackEvents.on('app_mention', async (event) => {
   if ((event.text.includes('help')) || (event.text.includes('/help'))) {
     getHelp(event)
   }
-  if ((event.text.includes('light_white')) || (event.text.includes('/lightwhite'))) {
-    turnLightWhite(userUrl, authHeadersActual, event)
-  }
-  if ((event.text.includes('light_full')) || (event.text.includes('/lightfull'))) {
-    turnLightFullBright(userUrl, authHeadersActual, event)
-  }
-  if ((event.text.includes('light_medium')) || (event.text.includes('/lightmedium'))) {
-    turnLightMedBright(userUrl, authHeadersActual, event)
-  }
-  if ((event.text.includes('light_low')) || (event.text.includes('/lightlow'))) {
-    turnLightLowBright(userUrl, authHeadersActual, event)
-  }
   natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
     if (err) {
       console.log(err)
@@ -135,11 +123,23 @@ slackEvents.on('app_mention', async (event) => {
   if ((actionClass === 'light_blue') || (event.text.includes('/lightblue'))) {
     turnLightBlue(userUrl, authHeadersActual, event)
   }
+  if ((actionClass === 'light_white') || (event.text.includes('/lightwhite'))) {
+    turnLightWhite(userUrl, authHeadersActual, event)
+  }
   if ((actionClass === 'light_up') || (event.text.includes('/lightbright'))) {
     turnLightUp(userUrl, authHeadersActual, event)
   }
   if ((actionClass === 'light_down') || (event.text.includes('/lightdim'))) {
     turnLightDown(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_full') || (event.text.includes('/lightfull'))) {
+    turnLightFullBright(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_medium') || (event.text.includes('/lightmedium'))) {
+    turnLightMedBright(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_low') || (event.text.includes('/lightlow'))) {
+    turnLightLowBright(userUrl, authHeadersActual, event)
   }
   if ((actionClass === 'switch_status') || (event.text.includes('/switchstatus'))) {
     checkSwitchStatus(userUrl, authHeadersActual, event)
