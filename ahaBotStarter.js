@@ -718,14 +718,16 @@ async function checkFuelStatus (userUrl, authHeadersActual, event) {
   })
 }
 
-// Check Vehicle Range Remaining (in km)
+// Check Vehicle Range Remaining (in miles)
 async function checkCarRange (userUrl, authHeadersActual, event) {
   const rangeState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_range`, {
     headers: authHeadersActual
   })
+  const rangeStateMiles = rangeState * (0.621371)
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your vehicle range left in kilometers is ${rangeState.data.state}.`
+    icon_emoji: ':cat:',
+    text: `Your vehicle range left is ${rangeStateMiles} miles.`
   })
 }
 
