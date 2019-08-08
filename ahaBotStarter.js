@@ -32,7 +32,22 @@ slackEvents.on('app_mention', async (event) => {
   if (classifier.getClassifications(event.text)[0].value > .95){
       actionClass = classifier.getClassifications(event.text)[0].label
       console.log('actionClass in function:', actionClass)
-      console.log('typeof actionClass:', typeOf(actionClass))
+      console.log('typeof actionClass:', typeof(actionClass))
+      if (actionClass === 'how_home') {
+        getStates(userUrl, authHeadersActual, event)
+      }
+      if (actionClass === 'what_on') {
+        getOnStates(userUrl, authHeadersActual, event)
+      }
+      if (actionClass === 'what_off') {
+        getOffStates(userUrl, authHeadersActual, event)
+      }
+      if (actionClass === 'what_devices') {
+        whatDevices(userUrl, authHeadersActual, event)
+      }
+      if (actionClass === 'what_lights') {
+        whatLights(userUrl, authHeadersActual, event)
+      }
   }
   else {
       web.chat.postMessage({
