@@ -36,36 +36,7 @@ slackEvents.on('app_mention', async (event) => {
       if (actionClass === 'how_home') {
         getStates(userUrl, authHeadersActual, event)
       }
-      if (actionClass === 'what_on') {
-        getOnStates(userUrl, authHeadersActual, event)
-      }
-      if (actionClass === 'what_off') {
-        getOffStates(userUrl, authHeadersActual, event)
-      }
-      if (actionClass === 'what_devices') {
-        whatDevices(userUrl, authHeadersActual, event)
-      }
-      if (actionClass === 'what_lights') {
-        whatLights(userUrl, authHeadersActual, event)
-      }
   }
-  else {
-      web.chat.postMessage({
-          channel: event.channel,
-          text: `I'm not totally sure what you want when you say "${event.text}" can you try rephrasing your request?`
-        })
-  }
-})
-  // natural.BayesClassifier.load('simpleClassifierAction.json', null, function(err, classifier) {
-  //   if (err) {
-  //     console.log(err)
-  //   }
-  //   web.chat.postMessage({
-  //     channel: event.channel,
-  //     icon_emoji: ':hypnotoad:',
-  //     text: classifier.classify(event.text)
-  //   })
-  // })
   
   console.log('actionClass ifs:', actionClass)
   // listeners begin
@@ -198,7 +169,17 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('car_range')) {
     checkCarRange(userUrl, authHeadersActual, event)
   }
+  if (event.text.includes('help')) {
+    getHelp(event)
+  }
+  else {
+    web.chat.postMessage({
+        channel: event.channel,
+        text: `I'm not totally sure what you want when you say "${event.text}" can you try rephrasing your request?`
+      })
+    }
   })
+})
 
 // listeners end
 
