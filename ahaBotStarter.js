@@ -24,6 +24,11 @@ slackEvents.on('app_mention', async (event) => {
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
   let actionClass
+  natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
+    if (err) {
+      console.log(err)
+    }
+  
   if (classifier.getClassifications(event.text)[0].value > .95){
       actionClass = classifier.getClassifications(event.text)[0].label
   }
@@ -33,6 +38,7 @@ slackEvents.on('app_mention', async (event) => {
           text: `I'm not totally sure what you want when you say "${event.text}" can you try rephrasing your request?`
         })
   }
+})
   // natural.BayesClassifier.load('simpleClassifierAction.json', null, function(err, classifier) {
   //   if (err) {
   //     console.log(err)
