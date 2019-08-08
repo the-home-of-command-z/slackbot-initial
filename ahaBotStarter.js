@@ -21,7 +21,7 @@ var instance = 'living_room'
 slackEvents.on('app_mention', async (event) => {
   console.log('anything I want')
   const userInfoResponse = await getUserInfo(event)
-  if (!userInfoResponse.data[0].url || !userInfoResponse.data[0].access_token){
+  if (!userInfoResponse.data[0]){
     web.chat.postMessage({
       channel: event.channel,
       text: `<!event.user> It looks like you haven't registered with us yet. Head on over to http://ahabot-registration.herokuapp.com/ to get started!`
