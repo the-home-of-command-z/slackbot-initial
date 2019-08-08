@@ -31,22 +31,6 @@ slackEvents.on('app_mention', async (event) => {
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
   let actionClass
-  natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
-    if (err) {
-      console.log(err)
-    }
-  
-  if (classifier.getClassifications(event.text)[0].value > .95){
-      actionClass = classifier.getClassifications(event.text)[0].label
-      console.log('actionClass in function:', actionClass)
-      console.log('typeof actionClass:', typeof(actionClass))
-      if (actionClass === 'how_home') {
-        getStates(userUrl, authHeadersActual, event)
-      }
-  
-  
-  console.log('actionClass ifs:', actionClass)
-  // listeners begin
   if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
     instance = 'living_room'
   }
@@ -92,6 +76,23 @@ slackEvents.on('app_mention', async (event) => {
   if ((event.text.includes('light_low')) || (event.text.includes('/lightlow'))) {
     turnLightLowBright(userUrl, authHeadersActual, event)
   }
+  natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
+    if (err) {
+      console.log(err)
+    }
+  
+  if (classifier.getClassifications(event.text)[0].value > .95){
+      actionClass = classifier.getClassifications(event.text)[0].label
+      console.log('actionClass in function:', actionClass)
+      console.log('typeof actionClass:', typeof(actionClass))
+      if (actionClass === 'how_home') {
+        getStates(userUrl, authHeadersActual, event)
+      }
+  
+  
+  console.log('actionClass ifs:', actionClass)
+  // listeners begin
+  
   if ((actionClass === 'how_home') || (event.text.includes('/allstatus'))) {
     getStates(userUrl, authHeadersActual, event)
   }
