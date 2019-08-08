@@ -319,7 +319,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is ${lightState.data.state}`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is *${lightState.data.state}*`
   })
 }
 
@@ -332,7 +332,7 @@ async function turnLightOn (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now ${lightState.data.state}`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *${lightState.data.state}*`
   })
 }
 
@@ -342,7 +342,7 @@ async function checkSwitchStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${switchState.data.attributes.friendly_name} switch is ${switchState.data.state}`
+    text: `Your *${switchState.data.attributes.friendly_name} switch* is *${switchState.data.state}*`
   })
 }
 async function turnLightOff (userUrl, authHeadersActual, event) {
@@ -354,7 +354,7 @@ async function turnLightOff (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now ${lightState.data.state}`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *${lightState.data.state}*`
   })
 }
 async function turnLightRed (userUrl, authHeadersActual, event) {
@@ -366,7 +366,7 @@ async function turnLightRed (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now red.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *red*.`
   })
 }
 async function turnLightGreen (userUrl, authHeadersActual, event) {
@@ -378,7 +378,7 @@ async function turnLightGreen (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now green.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *green*.`
   })
 }
 
@@ -391,7 +391,7 @@ async function turnSwitchOn (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
+    text: `Your *${switchState.data.attributes.friendly_name} switch* is now *${switchState.data.state}*`
   })
 }
 async function turnLightBlue (userUrl, authHeadersActual, event) {
@@ -403,7 +403,7 @@ async function turnLightBlue (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now blue.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *blue*.`
   })
 }
 async function turnLightPolice (userUrl, authHeadersActual, event) {
@@ -415,7 +415,7 @@ async function turnLightPolice (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is displaying a police strobe effect.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is displaying a police strobe effect.`
   })
 }
 
@@ -428,7 +428,7 @@ async function turnSwitchOff (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${switchState.data.attributes.friendly_name} switch is now ${switchState.data.state}`
+    text: `Your *${switchState.data.attributes.friendly_name} switch* is now *${switchState.data.state}*`
   })
 }
 async function turnLightRandom (userUrl, authHeadersActual, event) {
@@ -440,7 +440,7 @@ async function turnLightRandom (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is displaying a random light loop.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is displaying a random light loop.`
   })
 }
 async function turnLightStop (userUrl, authHeadersActual, event) {
@@ -452,7 +452,7 @@ async function turnLightStop (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light effect has stopped.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* effect has stopped.`
   })
 }
 
@@ -465,7 +465,7 @@ async function turnLightFullBright (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now set to full brightness.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now set to *full* brightness.`
   })
 }
 async function turnLightMedBright (userUrl, authHeadersActual, event) {
@@ -477,7 +477,7 @@ async function turnLightMedBright (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now set to medium brightness.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now set to *medium* brightness.`
   })
 }
 async function turnLightLowBright (userUrl, authHeadersActual, event) {
@@ -489,7 +489,7 @@ async function turnLightLowBright (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is now set to low brightness.`  })
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now set to *low* brightness.`  })
 }
 
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
@@ -498,7 +498,7 @@ async function checkMediaStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player is ${media_playerState.data.state}`
+    text: `Your media player is *${media_playerState.data.state}*`
   })
 }
 
@@ -508,7 +508,7 @@ async function turnMediaPlay (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player is now playing`
+    text: `Your media player is now *playing*`
   })
 }
 async function turnMediaPause (userUrl, authHeadersActual, event) {
@@ -517,7 +517,7 @@ async function turnMediaPause (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player is now paused`
+    text: `Your media player is now *paused*`
   })
 }
 async function turnMediaStop (userUrl, authHeadersActual, event) {
@@ -526,7 +526,7 @@ async function turnMediaStop (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player is now stopped`
+    text: `Your media player is now *stopped*`
   })
 }
 async function turnMediaUp (userUrl, authHeadersActual, event) {
@@ -535,7 +535,7 @@ async function turnMediaUp (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player volume was raised`
+    text: `Your media player volume was *raised*`
   })
 }
 async function turnMediaDown (userUrl, authHeadersActual, event) {
@@ -544,7 +544,7 @@ async function turnMediaDown (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player volume was lowered`
+    text: `Your media player volume was *lowered*`
   })
 }
 async function turnMediaMute (userUrl, authHeadersActual, event) {
@@ -553,7 +553,7 @@ async function turnMediaMute (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your media player was muted`
+    text: `Your media player was *muted*`
   })
 }
 async function checkClimateStatus (userUrl, authHeadersActual, event) {
@@ -562,7 +562,7 @@ async function checkClimateStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your temperature is ${climateState.data.temperature}`
+    text: `Your temperature is *${climateState.data.temperature}*`
   })
 }
 
@@ -581,7 +581,7 @@ async function turnClimateUp (userURL, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your temperature is now set to ${climateState.data.temperature}`
+    text: `Your temperature is now set to *${climateState.data.temperature}*`
   })
 }
 async function turnClimateDown (userURL, authHeadersActual, event) {
@@ -599,7 +599,7 @@ async function turnClimateDown (userURL, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your temperature is now set to ${climateState.data.temperature}`
+    text: `Your temperature is now set to *${climateState.data.temperature}*`
   })
 }
 async function turnLightUp (userUrl, authHeadersActual, event) {
@@ -617,7 +617,7 @@ async function turnLightUp (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light's brightness was increased by 20%`
+    text: `Your *${lightState.data.attributes.friendly_name} light's* brightness was increased by *20%*`
   })
 }
 async function turnLightDown (userUrl, authHeadersActual, event) {
@@ -635,7 +635,7 @@ async function turnLightDown (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light's brightness was decreased by 20%`
+    text: `Your *${lightState.data.attributes.friendly_name} light's* brightness was decreased by *20%*`
   })
 }
 
@@ -652,7 +652,7 @@ async function getOnStates (userUrl, authHeadersActual, event) {
   for (const entity of statesData.data) {
     if (entity.attributes.friendly_name && entity.state === 'on') {
       entityArray.push({"color": "#2fcc1b",
-      "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+      "text": `Your *${entity.attributes.friendly_name}* is *${entity.state}*`
     })
     }
   }
@@ -669,7 +669,7 @@ async function getOffStates (userUrl, authHeadersActual, event) {
   for (const entity of statesData.data) {
     if (entity.attributes.friendly_name && entity.state === 'off') {
       entityArray.push({"color": "#c21913",
-      "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+      "text": `Your *${entity.attributes.friendly_name}* is *${entity.state}*`
     })
     }
   }
@@ -687,17 +687,17 @@ async function getStates (userUrl, authHeadersActual, event) {
     if (entity.attributes.friendly_name && entity.state !== 'unknown') {
       if(entity.state === 'on'){
       entityArray.push({"color": "#2fcc1b",
-        "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+        "text": `Your *${entity.attributes.friendly_name}* is *${entity.state}*`
       })
     }
     else if(entity.state === 'off'){
       entityArray.push({"color": "#c21913",
-        "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+        "text": `Your *${entity.attributes.friendly_name}* is *${entity.state}*`
       })
     }
     else {
       entityArray.push({"color": "#2413c2",
-        "text": `Your ${entity.attributes.friendly_name} is ${entity.state}`
+        "text": `Your *${entity.attributes.friendly_name}* is *${entity.state}*`
       })
     }
     }
@@ -735,7 +735,7 @@ async function whatDevices (userUrl, authHeadersActual, event) {
   console.log(entityArray)
   web.chat.postMessage({
     channel: event.channel,
-    text: `I can control your smart lighting${ifLight}\nI can control your smart plugs and outlets${ifSwitch}\nI can control your thermostat${ifTherm}\nI can control your smart media player(s)${ifMedia}`
+    text: `I can control your *smart lighting*${ifLight}\nI can control your *smart plugs and outlets*${ifSwitch}\nI can control your *thermostat*${ifTherm}\nI can control your *smart media player(s)*${ifMedia}`
   })
 }
 
@@ -755,7 +755,7 @@ async function whatLights (userUrl, authHeadersActual, event) {
   entityString = entityString.slice(0, -2)
   web.chat.postMessage({
     channel: event.channel,
-    text: `These are the following connected lights available to control: ${entityString}`
+    text: `These are the following connected lights available to control: *${entityString}*`
   })
 }
 
@@ -775,7 +775,7 @@ async function whatSwitches (userUrl, authHeadersActual, event) {
   entityString = entityString.slice(0, -2)
   web.chat.postMessage({
     channel: event.channel,
-    text: `These are the following connected smart plugs (or outlets) available to control: ${entityString}`
+    text: `These are the following connected smart plugs (or outlets) available to control: *${entityString}*`
   })
 }
 
@@ -795,7 +795,7 @@ async function whatTherm (userUrl, authHeadersActual, event) {
   entityString = entityString.slice(0, -2)
   web.chat.postMessage({
     channel: event.channel,
-    text: `These are the following connected thermostats available to control: ${entityString}`
+    text: `These are the following connected thermostats available to control: *${entityString}*`
   })
 }
 
@@ -815,7 +815,7 @@ async function whatMedia (userUrl, authHeadersActual, event) {
   entityString = entityString.slice(0, -2)
   web.chat.postMessage({
     channel: event.channel,
-    text: `These are the following connected media players available to control: ${entityString}`
+    text: `These are the following connected media players available to control: *${entityString}*`
   })
 }
 
@@ -829,7 +829,7 @@ async function turnLightWhite (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your light is now white.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *white*.`
   })
 }
 
@@ -840,7 +840,7 @@ async function checkFuelStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your fuel percentage remaining is ${fuelState.data.state}%.`
+    text: `Your fuel percentage remaining is *${fuelState.data.state}%*.`
   })
 }
 
@@ -853,14 +853,14 @@ async function checkCarRange (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     icon_emoji: ':cat:',
-    text: `Your vehicle range left is ${rangeStateMiles} miles.`
+    text: `Your vehicle range left is *${rangeStateMiles} miles*.`
   })
 }
 
 async function getHelp (event) {
   web.chat.postMessage({
     channel: event.channel,
-    text: 'Hi there!\nIt seems you are trying to get assitance.\nFor a list of commands that AHAbot can accept, please visit https://ahabot-registration.herokuapp.com/help/'
+    text: 'Hi there!\nIt seems you are trying to get assitance.\n*For a list of commands that AHAbot can accept, please visit* https://ahabot-registration.herokuapp.com/help/'
   })
 }
 (async () => {
