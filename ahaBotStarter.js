@@ -17,7 +17,7 @@ var ifMedia = ' if you connect supported media players to Home Assistant.'
 var instance = 'living_room'
 
 // Main bot function chain contained in here, triggered by event
-slackEvents.on('message', async (event) => {
+slackEvents.on('app_mention', async (event) => {
   console.log('anything I want')
   const userInfoResponse = await getUserInfo(event)
   const userUrl = await userInfoResponse.data[0].url
