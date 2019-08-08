@@ -367,8 +367,9 @@ async function turnLightLowBright (userUrl, authHeadersActual, event) {
     channel: event.channel,
     text: `Your ${lightState.data.attributes.friendly_name} light is now set to low brightness.`  })
 }
+
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
-  const media_playerState = await axios.get(`https://${userUrl}/api/states/`, { entity_id: `media_player.${instance}` }, {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -376,6 +377,7 @@ async function checkMediaStatus (userUrl, authHeadersActual, event) {
     text: `Your media player is ${media_playerState.data.state}`
   })
 }
+
 async function turnMediaPlay (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
