@@ -31,6 +31,8 @@ slackEvents.on('app_mention', async (event) => {
   
   if (classifier.getClassifications(event.text)[0].value > .95){
       actionClass = classifier.getClassifications(event.text)[0].label
+      console.log('actionClass in function:', actionClass)
+      console.log('typeof actionClass:', typeOf(actionClass))
   }
   else {
       web.chat.postMessage({
@@ -50,7 +52,7 @@ slackEvents.on('app_mention', async (event) => {
   //   })
   // })
   
-  
+  console.log('actionClass ifs:', actionClass)
   // listeners begin
   if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
     instance = 'living_room'
