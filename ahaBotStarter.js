@@ -46,23 +46,122 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('office')) {
     instance = 'office'
   }
-  if ((event.text.includes('fuzz')) || (event.text.includes('/fuzz'))) {
+  if (event.text.includes('help')) {
+    getHelp(event)
+  }
+  if (event.text.includes('how_home')) {
+    getStates(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_on')) {
+    getOnStates(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_off')) {
+    getOffStates(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_devices')) {
+    whatDevices(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_lights')) {
+    whatLights(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_switches')) {
+    whatSwitches(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_therm')) {
+    whatTherm(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('what_media')) {
+    whatMedia(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_status')) {
+    checkLightStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_on')) {
+    turnLightOn(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_off')) {
+    turnLightOff(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_red')) {
+    turnLightRed(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_green')) {
+    turnLightGreen(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_blue')) {
+    turnLightBlue(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_white')) {
+    turnLightWhite(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_full')) {
+    turnLightFullBright(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_medium')) {
+    turnLightMedBright(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_low')) {
+    turnLightLowBright(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_up')) {
+    turnLightUp(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_down')) {
+    turnLightDown(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('fuzz')) {
     turnLightPolice(userUrl, authHeadersActual, event)
   }
-  if ((event.text.includes('trippy')) || (event.text.includes('/trippy'))) {
+  if (event.text.includes('trippy')) {
     turnLightRandom(userUrl, authHeadersActual, event)
   }
-  if ((event.text.includes('light_stop')) || (event.text.includes('/lightstop'))) {
+  if (event.text.includes('light_stop')) {
     turnLightStop(userUrl, authHeadersActual, event)
   }
-  if ((event.text.includes('fuel_status')) || (event.text.includes('/fuelstatus'))) {
+  if (event.text.includes('switch_status')) {
+    checkSwitchStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('switch_on')) {
+    turnSwitchOn(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('switch_off')) {
+    turnSwitchOff(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('media_status')) {
+    checkMediaStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('media_play')) {
+    turnMediaPlay(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('media_pause')) {
+    turnMediaPause(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('media_stop')) {
+    turnMediaStop(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('volume_mute')) {
+    turnMediaMute(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('volume_up')) {
+    turnMediaUp(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('volume_down')) {
+    turnMediaDown(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('climate_status')) {
+    checkClimateStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('temperature_up')) {
+    turnClimateUp(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('tempearture_down')) {
+    turnClimateDown(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('fuel_status')) {
     checkFuelStatus(userUrl, authHeadersActual, event)
   }
-  if ((event.text.includes('car_range')) || (event.text.includes('/fuelstatus'))) {
+  if (event.text.includes('car_range')) {
     checkCarRange(userUrl, authHeadersActual, event)
-  }
-  if ((event.text.includes('help')) || (event.text.includes('/help'))) {
-    getHelp(event)
   }
   natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
     if (err) {
@@ -81,103 +180,103 @@ slackEvents.on('app_mention', async (event) => {
   console.log('actionClass ifs:', actionClass)
   // listeners begin
   
-  if ((actionClass === 'how_home') || (event.text.includes('/allstatus'))) {
+  if (actionClass === 'how_home') {
     getStates(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_on')  || (event.text.includes('/whatson'))) {
+  if (actionClass === 'what_on') {
     getOnStates(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_off') || (event.text.includes('/whatsoff'))) {
+  if (actionClass === 'what_off') {
     getOffStates(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_devices') || (event.text.includes('/whatdevices'))) {
+  if (actionClass === 'what_devices') {
     whatDevices(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_lights') || (event.text.includes('/whatlights'))) {
+  if (actionClass === 'what_lights') {
     whatLights(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_switches') || (event.text.includes('/whatswitches'))) {
+  if (actionClass === 'what_switches') {
     whatSwitches(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_therm') || (event.text.includes('/whattherm'))) {
+  if (actionClass === 'what_therm') {
     whatTherm(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'what_media') || (event.text.includes('/whatmedia'))) {
+  if (actionClass === 'what_media') {
     whatMedia(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_status') || (event.text.includes('/lightstatus'))) {
+  if (actionClass === 'light_status') {
     checkLightStatus(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_on') || (event.text.includes('/lighton'))) {
+  if (actionClass === 'light_on') {
     turnLightOn(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_off') || (event.text.includes('/lightoff'))) {
+  if (actionClass === 'light_off') {
     turnLightOff(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_red') || (event.text.includes('/lightred'))) {
+  if (actionClass === 'light_red') {
     turnLightRed(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_green') || (event.text.includes('/lightgreen'))) {
+  if (actionClass === 'light_green') {
     turnLightGreen(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_blue') || (event.text.includes('/lightblue'))) {
+  if (actionClass === 'light_blue') {
     turnLightBlue(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_white') || (event.text.includes('/lightwhite'))) {
+  if (actionClass === 'light_white') {
     turnLightWhite(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_up') || (event.text.includes('/lightbright'))) {
+  if (actionClass === 'light_up') {
     turnLightUp(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_down') || (event.text.includes('/lightdim'))) {
+  if (actionClass === 'light_down') {
     turnLightDown(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_full') || (event.text.includes('/lightfull'))) {
+  if (actionClass === 'light_full') {
     turnLightFullBright(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_medium') || (event.text.includes('/lightmedium'))) {
+  if (actionClass === 'light_medium') {
     turnLightMedBright(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'light_low') || (event.text.includes('/lightlow'))) {
+  if (actionClass === 'light_low') {
     turnLightLowBright(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'switch_status') || (event.text.includes('/switchstatus'))) {
+  if (actionClass === 'switch_status') {
     checkSwitchStatus(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'switch_on') || (event.text.includes('/switchon'))) {
+  if (actionClass === 'switch_on') {
     turnSwitchOn(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'switch_off') || (event.text.includes('/switchoff'))) {
+  if (actionClass === 'switch_off') {
     turnSwitchOff(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'media_status') || (event.text.includes('/mediastatus'))) {
+  if (actionClass === 'media_status') {
     checkMediaStatus(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'media_play') || (event.text.includes('/play'))) {
+  if (actionClass === 'media_play') {
     turnMediaPlay(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'media_pause') || (event.text.includes('/pause'))) {
+  if (actionClass === 'media_pause') {
     turnMediaPause(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'media_stop') || (event.text.includes('/stop'))) {
+  if (actionClass === 'media_stop') {
     turnMediaStop(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'volume_mute') || (event.text.includes('/mute'))) {
+  if (actionClass === 'volume_mute') {
     turnMediaMute(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'volume_up') || (event.text.includes('/volumeup'))) {
+  if (actionClass === 'volume_up') {
     turnMediaUp(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'volume_down') || (event.text.includes('/volumedown'))) {
+  if (actionClass === 'volume_down') {
     turnMediaDown(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'climate_status') || (event.text.includes('/thermstatus'))) {
+  if (actionClass === 'climate_status') {
     checkClimateStatus(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'temperature_up') || (event.text.includes('/warmer'))) {
+  if (actionClass === 'temperature_up') {
     turnClimateUp(userUrl, authHeadersActual, event)
   }
-  if ((actionClass === 'tempearture_down') || (event.text.includes('/cooler'))) {
+  if (actionClass === 'tempearture_down') {
     turnClimateDown(userUrl, authHeadersActual, event)
   }
 }
