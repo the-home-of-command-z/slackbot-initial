@@ -46,7 +46,7 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('office')) {
     instance = 'office'
   }
-  if (explicitCommand(event)){
+  if (explicitCommand(event, authHeadersActual, userUrl)){
 
   }
   else {
@@ -202,7 +202,7 @@ function makeHeader (userInfoResponse) {
   return authHeadersActual
 }
 
-async function explicitCommand (event){
+async function explicitCommand (event, authHeadersActual, userUrl){
   if (event.text.includes('help')) {
     getHelp(event)
     return True
