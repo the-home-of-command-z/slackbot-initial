@@ -32,7 +32,7 @@ slackEvents.on('app_mention', async (event) => {
   if (classifier.getClassifications(event.text)[0].value > .95){
       actionClass = classifier.getClassifications(event.text)[0].label
       console.log('actionClass in function:', actionClass)
-      console.log('typeof actionClass:', typeOf(actionClass))
+      console.log('typeof actionClass:', typeof(actionClass))
   }
   else {
       web.chat.postMessage({
