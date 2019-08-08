@@ -36,7 +36,7 @@ slackEvents.on('app_mention', async (event) => {
       if (actionClass === 'how_home') {
         getStates(userUrl, authHeadersActual, event)
       }
-  }
+  
   
   console.log('actionClass ifs:', actionClass)
   // listeners begin
@@ -172,6 +172,7 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('help')) {
     getHelp(event)
   }
+}
   else {
     web.chat.postMessage({
         channel: event.channel,
