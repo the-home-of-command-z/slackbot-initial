@@ -18,7 +18,7 @@ var instance = 'living_room'
 
 
 // Main bot function chain contained in here, triggered by event
-slackEvents.on('message.im', async (event) => {
+slackEvents.on('app_mention', async (event) => {
   console.log('anything I want')
   const userInfoResponse = await getUserInfo(event)
   if (!userInfoResponse.data[0]){
