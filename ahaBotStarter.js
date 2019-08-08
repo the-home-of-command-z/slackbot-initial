@@ -21,6 +21,13 @@ var instance = 'living_room'
 slackEvents.on('app_mention', async (event) => {
   console.log('anything I want')
   const userInfoResponse = await getUserInfo(event)
+  if (!userInfoResponse.data[0].url || !userInfoResponse.data[0].access_token){
+    web.chat.postMessage({
+      channel: event.channel,
+      text: `<!event.user> It looks like you haven't registered with us yet. Head on over to http://ahabot-registration.herokuapp.com/ to get started!`
+    })
+  }
+  else {
   const userUrl = await userInfoResponse.data[0].url
   const authHeadersActual = await makeHeader(userInfoResponse)
   let actionClass
@@ -180,6 +187,7 @@ slackEvents.on('app_mention', async (event) => {
       })
     }
   })
+}
 })
 
 // listeners end
@@ -211,7 +219,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your ${lightState.data.attributes.friendly_name} light is ${lightState.data.state}`
+    text: `<!event.user> Your ${lightState.data.attributes.friendly_name} light is ${lightState.data.state}`
   })
 }
 
