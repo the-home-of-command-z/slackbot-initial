@@ -332,7 +332,7 @@ async function turnLightOn (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your *${lightState.data.attributes.friendly_name} light* is now *${lightState.data.state}*`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is now *${lightState.data.state}* :bulb:`
   })
 }
 
