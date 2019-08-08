@@ -237,6 +237,49 @@ classifierAction.addDocument('use blue light', 'light_blue')
 classifierAction.addDocument('switch to blue', 'light_blue')
 classifierAction.addDocument('blue', 'light_blue')
 
+
+// Light White Classifiers
+classifierAction.addDocument('light_white', 'light_white')
+classifierAction.addDocument('light white', 'light_white')
+classifierAction.addDocument('can be white', 'light_white')
+classifierAction.addDocument('should be white', 'light_white')
+classifierAction.addDocument('white', 'light_white')
+classifierAction.addDocument('make white', 'light_white')
+classifierAction.addDocument('turn white', 'light_white')
+classifierAction.addDocument('use white light', 'light_white')
+
+
+//Light Full Classifiers
+classifierAction.addDocument('light_full', 'light_full')
+classifierAction.addDocument('light full', 'light_full')
+classifierAction.addDocument('full brightness', 'light_full')
+classifierAction.addDocument('full light', 'light_full')
+classifierAction.addDocument('light all the way up', 'light_full')
+classifierAction.addDocument('light all the way', 'light_full')
+classifierAction.addDocument('max light', 'light_full')
+classifierAction.addDocument('maximum light', 'light_full')
+classifierAction.addDocument('full', 'light_full')
+
+
+//Light Medium Classifiers
+classifierAction.addDocument('light_medium', 'light_medium')
+classifierAction.addDocument('light medium', 'light_medium')
+classifierAction.addDocument('medium brightness', 'light_medium')
+classifierAction.addDocument('medium lights', 'light_medium')
+classifierAction.addDocument('half brightness', 'light_medium')
+classifierAction.addDocument('lights halfway', 'light_medium')
+classifierAction.addDocument('light half', 'light_medium')
+classifierAction.addDocument('medium', 'light_medium')
+
+
+//Light Low Classifiers
+classifierAction.addDocument('light_low', 'light_low')
+classifierAction.addDocument('light low', 'light_low')
+classifierAction.addDocument('low brightness', 'light_low')
+classifierAction.addDocument('low lights', 'light_low')
+classifierAction.addDocument('low', 'light_low')
+classifierAction.addDocument('bring light low', 'light_low')
+
 // Media Status Classifiers
 classifierAction.addDocument('media_status', 'media_status')
 classifierAction.addDocument('media status', 'media_status')
