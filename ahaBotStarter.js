@@ -62,122 +62,122 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('office')) {
     instance = 'office'
   }
-  if (actionClass === 'how_home') {
-    getStates(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_on') {
-    getOnStates(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_off') {
-    getOffStates(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_devices') {
-    whatDevices(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_lights') {
-    whatLights(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_switches') {
-    whatSwitches(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_therm') {
-    whatTherm(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'what_media') {
-    whatMedia(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_status') {
-    checkLightStatus(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_on') {
-    turnLightOn(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'switch_status') {
-    checkSwitchStatus(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'switch_on') {
-    turnSwitchOn(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'switch_off') {
-    turnSwitchOff(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_off') {
-    turnLightOff(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_red') {
-    turnLightRed(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_green') {
-    turnLightGreen(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_blue') {
-    turnLightBlue(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('fuzz')) {
+  if ((event.text.includes('fuzz')) || (event.text.includes('/fuzz'))) {
     turnLightPolice(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('trippy')) {
+  if ((event.text.includes('trippy')) || (event.text.includes('/trippy'))) {
     turnLightRandom(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('light_stop')) {
+  if ((event.text.includes('light_stop')) || (event.text.includes('/lightstop'))) {
     turnLightStop(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('light_full')) {
-    turnLightFullBright(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_medium')) {
-    turnLightMedBright(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_low')) {
-    turnLightLowBright(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_up') {
-    turnLightUp(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'light_down') {
-    turnLightDown(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'media_status') {
-    checkMediaStatus(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'media_play') {
-    turnMediaPlay(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'media_pause') {
-    turnMediaPause(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'media_stop') {
-    turnMediaStop(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'volume_mute') {
-    turnMediaMute(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'volume_up') {
-    turnMediaUp(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'volume_down') {
-    turnMediaDown(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'climate_status') {
-    checkClimateStatus(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'temperature_up') {
-    turnClimateUp(userUrl, authHeadersActual, event)
-  }
-  if (actionClass === 'tempearture_down') {
-    turnClimateDown(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_white')) {
-    turnLightWhite(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('fuel_status')) {
+  if ((event.text.includes('fuel_status')) || (event.text.includes('/fuelstatus'))) {
     checkFuelStatus(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('car_range')) {
+  if ((event.text.includes('car_range')) || (event.text.includes('/fuelstatus'))) {
     checkCarRange(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('help')) {
+  if ((event.text.includes('help')) || (event.text.includes('/help'))) {
     getHelp(event)
+  }
+  if ((event.text.includes('light_white')) || (event.text.includes('/lightwhite'))) {
+    turnLightWhite(userUrl, authHeadersActual, event)
+  }
+  if ((event.text.includes('light_full')) || (event.text.includes('/lightfull'))) {
+    turnLightFullBright(userUrl, authHeadersActual, event)
+  }
+  if ((event.text.includes('light_medium')) || (event.text.includes('/lightmedium'))) {
+    turnLightMedBright(userUrl, authHeadersActual, event)
+  }
+  if ((event.text.includes('light_low')) || (event.text.includes('/lightlow'))) {
+    turnLightLowBright(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'how_home') || (event.text.includes('/allstatus'))) {
+    getStates(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_on')  || (event.text.includes('/whatson'))) {
+    getOnStates(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_off') || (event.text.includes('/whatsoff'))) {
+    getOffStates(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_devices') || (event.text.includes('/whatdevices'))) {
+    whatDevices(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_lights') || (event.text.includes('/whatlights'))) {
+    whatLights(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_switches') || (event.text.includes('/whatswitches'))) {
+    whatSwitches(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_therm') || (event.text.includes('/whattherm'))) {
+    whatTherm(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'what_media') || (event.text.includes('/whatmedia'))) {
+    whatMedia(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_status') || (event.text.includes('/lightstatus'))) {
+    checkLightStatus(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_on') || (event.text.includes('/lighton'))) {
+    turnLightOn(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_off') || (event.text.includes('/lightoff'))) {
+    turnLightOff(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_red') || (event.text.includes('/lightred'))) {
+    turnLightRed(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_green') || (event.text.includes('/lightgreen'))) {
+    turnLightGreen(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_blue') || (event.text.includes('/lightblue'))) {
+    turnLightBlue(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_up') || (event.text.includes('/lightbright'))) {
+    turnLightUp(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'light_down') || (event.text.includes('/lightdim'))) {
+    turnLightDown(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'switch_status') || (event.text.includes('/switchstatus'))) {
+    checkSwitchStatus(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'switch_on') || (event.text.includes('/switchon'))) {
+    turnSwitchOn(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'switch_off') || (event.text.includes('/switchoff'))) {
+    turnSwitchOff(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'media_status') || (event.text.includes('/mediastatus'))) {
+    checkMediaStatus(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'media_play') || (event.text.includes('/play'))) {
+    turnMediaPlay(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'media_pause') || (event.text.includes('/pause'))) {
+    turnMediaPause(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'media_stop') || (event.text.includes('/stop'))) {
+    turnMediaStop(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'volume_mute') || (event.text.includes('/mute'))) {
+    turnMediaMute(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'volume_up') || (event.text.includes('/volumeup'))) {
+    turnMediaUp(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'volume_down') || (event.text.includes('/volumedown'))) {
+    turnMediaDown(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'climate_status') || (event.text.includes('/thermstatus'))) {
+    checkClimateStatus(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'temperature_up') || (event.text.includes('/warmer'))) {
+    turnClimateUp(userUrl, authHeadersActual, event)
+  }
+  if ((actionClass === 'tempearture_down') || (event.text.includes('/cooler'))) {
+    turnClimateDown(userUrl, authHeadersActual, event)
   }
 }
   else {
@@ -393,7 +393,7 @@ async function turnLightLowBright (userUrl, authHeadersActual, event) {
 }
 
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
-  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.${instance}_display`, {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -403,7 +403,7 @@ async function checkMediaStatus (userUrl, authHeadersActual, event) {
 }
 
 async function turnMediaPlay (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -412,7 +412,7 @@ async function turnMediaPlay (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaPause (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -421,7 +421,7 @@ async function turnMediaPause (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaStop (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -430,7 +430,7 @@ async function turnMediaStop (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaUp (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -439,7 +439,7 @@ async function turnMediaUp (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaDown (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -448,7 +448,7 @@ async function turnMediaDown (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaMute (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
