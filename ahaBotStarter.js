@@ -55,6 +55,36 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('office')) {
     instance = 'office'
   }
+  if (event.text.includes('fuzz')) {
+    turnLightPolice(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('trippy')) {
+    turnLightRandom(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_stop')) {
+    turnLightStop(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('fuel_status')) {
+    checkFuelStatus(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('car_range')) {
+    checkCarRange(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('help')) {
+    getHelp(event)
+  }
+  if (event.text.includes('light_white')) {
+    turnLightWhite(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_full')) {
+    turnLightFullBright(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_medium')) {
+    turnLightMedBright(userUrl, authHeadersActual, event)
+  }
+  if (event.text.includes('light_low')) {
+    turnLightLowBright(userUrl, authHeadersActual, event)
+  }
   if (actionClass === 'how_home') {
     getStates(userUrl, authHeadersActual, event)
   }
@@ -106,24 +136,6 @@ slackEvents.on('app_mention', async (event) => {
   if (actionClass === 'light_blue') {
     turnLightBlue(userUrl, authHeadersActual, event)
   }
-  if (event.text.includes('fuzz')) {
-    turnLightPolice(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('trippy')) {
-    turnLightRandom(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_stop')) {
-    turnLightStop(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_full')) {
-    turnLightFullBright(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_medium')) {
-    turnLightMedBright(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_low')) {
-    turnLightLowBright(userUrl, authHeadersActual, event)
-  }
   if (actionClass === 'light_up') {
     turnLightUp(userUrl, authHeadersActual, event)
   }
@@ -159,18 +171,6 @@ slackEvents.on('app_mention', async (event) => {
   }
   if (actionClass === 'tempearture_down') {
     turnClimateDown(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('light_white')) {
-    turnLightWhite(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('fuel_status')) {
-    checkFuelStatus(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('car_range')) {
-    checkCarRange(userUrl, authHeadersActual, event)
-  }
-  if (event.text.includes('help')) {
-    getHelp(event)
   }
 }
   else {
@@ -385,7 +385,7 @@ async function turnLightLowBright (userUrl, authHeadersActual, event) {
 }
 
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
-  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.${instance}_display`, {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -395,7 +395,7 @@ async function checkMediaStatus (userUrl, authHeadersActual, event) {
 }
 
 async function turnMediaPlay (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -404,7 +404,7 @@ async function turnMediaPlay (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaPause (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_pause`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -413,7 +413,7 @@ async function turnMediaPause (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaStop (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/media_stop`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -422,7 +422,7 @@ async function turnMediaStop (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaUp (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_up`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -431,7 +431,7 @@ async function turnMediaUp (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaDown (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_down`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -440,7 +440,7 @@ async function turnMediaDown (userUrl, authHeadersActual, event) {
   })
 }
 async function turnMediaMute (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, { entity_id: `media_player.${instance}_display` }, {
+  await axios.post(`https://${userUrl}/api/services/media_player/volume_mute`, { entity_id: `media_player.${instance}` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
