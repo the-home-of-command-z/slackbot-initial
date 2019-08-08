@@ -24,7 +24,7 @@ slackEvents.on('app_mention', async (event) => {
   if (!userInfoResponse.data[0]){
     web.chat.postMessage({
       channel: event.channel,
-      text: `<!event.user> It looks like you haven't registered with us yet. Head on over to http://ahabot-registration.herokuapp.com/ to get started!`
+      text: `It looks like you haven't registered with us yet. Head on over to http://ahabot-registration.herokuapp.com/ to get started!`
     })
   }
   else {
@@ -219,7 +219,7 @@ async function checkLightStatus (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `<!event.user> Your ${lightState.data.attributes.friendly_name} light is ${lightState.data.state}`
+    text: `Your ${lightState.data.attributes.friendly_name} light is ${lightState.data.state}`
   })
 }
 
