@@ -401,8 +401,9 @@ async function turnLightLowBright (userUrl, authHeadersActual, event) {
     channel: event.channel,
     text: `Your ${lightState.data.attributes.friendly_name} light is now set to low brightness.`  })
 }
+
 async function checkMediaStatus (userUrl, authHeadersActual, event) {
-  const media_playerState = await axios.get(`https://${userUrl}/api/states/media_player.bedroom_display`, {
+  const media_playerState = await axios.get(`https://${userUrl}/api/states/`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -410,6 +411,7 @@ async function checkMediaStatus (userUrl, authHeadersActual, event) {
     text: `Your media player is ${media_playerState.data.state}`
   })
 }
+
 async function turnMediaPlay (userUrl, authHeadersActual, event) {
   await axios.post(`https://${userUrl}/api/services/media_player/media_play`, { entity_id: `media_player.${instance}_display` }, {
     headers: authHeadersActual
@@ -752,14 +754,16 @@ async function checkFuelStatus (userUrl, authHeadersActual, event) {
   })
 }
 
-// Check Vehicle Range Remaining (in km)
+// Check Vehicle Range Remaining (in miles)
 async function checkCarRange (userUrl, authHeadersActual, event) {
   const rangeState = await axios.get(`https://${userUrl}/api/states/sensor.dmb8668_range`, {
     headers: authHeadersActual
   })
+  const rangeStateMiles = rangeState * (0.621371)
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your vehicle range left in kilometers is ${rangeState.data.state}.`
+    icon_emoji: ':cat:',
+    text: `Your vehicle range left is ${rangeStateMiles} miles.`
   })
 }
 
