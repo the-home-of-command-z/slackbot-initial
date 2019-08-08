@@ -46,10 +46,7 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('office')) {
     instance = 'office'
   }
-  if (explicitCommand(event, authHeadersActual, userUrl)){
-
-  }
-  else {
+  if (explicitCommand(event, authHeadersActual, userUrl) === false){
   natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
     if (err) {
       console.log(err)
@@ -205,159 +202,161 @@ function makeHeader (userInfoResponse) {
 async function explicitCommand (event, authHeadersActual, userUrl){
   if (event.text.includes('help')) {
     getHelp(event)
-    return True
+    return true
   }
   if (event.text.includes('how_home')) {
     getStates(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_on')) {
     getOnStates(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_off')) {
     getOffStates(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_devices')) {
     whatDevices(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_lights')) {
     whatLights(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_switches')) {
     whatSwitches(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_therm')) {
     whatTherm(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('what_media')) {
     whatMedia(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_status')) {
     checkLightStatus(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_on')) {
     turnLightOn(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_off')) {
     turnLightOff(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_red')) {
     turnLightRed(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_green')) {
     turnLightGreen(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_blue')) {
     turnLightBlue(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_white')) {
     turnLightWhite(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_full')) {
     turnLightFullBright(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_medium')) {
     turnLightMedBright(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_low')) {
     turnLightLowBright(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_up')) {
     turnLightUp(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_down')) {
     turnLightDown(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('fuzz')) {
     turnLightPolice(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('trippy')) {
     turnLightRandom(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('light_stop')) {
     turnLightStop(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('switch_status')) {
     checkSwitchStatus(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('switch_on')) {
     turnSwitchOn(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('switch_off')) {
     turnSwitchOff(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('media_status')) {
     checkMediaStatus(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('media_play')) {
     turnMediaPlay(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('media_pause')) {
     turnMediaPause(userUrl, authHeadersActual, event)
+    return true
   }
   if (event.text.includes('media_stop')) {
     turnMediaStop(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('volume_mute')) {
     turnMediaMute(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('volume_up')) {
     turnMediaUp(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('volume_down')) {
     turnMediaDown(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('climate_status')) {
     checkClimateStatus(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('temperature_up')) {
     turnClimateUp(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('tempearture_down')) {
     turnClimateDown(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('fuel_status')) {
     checkFuelStatus(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
   if (event.text.includes('car_range')) {
     checkCarRange(userUrl, authHeadersActual, event)
-    return True
+    return true
   }
+  return false
 }
 
 async function checkLightStatus (userUrl, authHeadersActual, event) {
