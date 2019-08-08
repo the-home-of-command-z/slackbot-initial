@@ -1,6 +1,6 @@
 const natural = require('natural')
 
-const classifierAction = new natural.BayesClassifier()
+const classifierAction = new natural.LogisticRegressionClassifier()
 // const classifierObject = new natural.BayesClassifier()
 
 // Light/Switch Turn On Classifiers
@@ -13,7 +13,7 @@ classifierAction.addDocument('turn on the lights', 'light_on')
 classifierAction.addDocument('switch on the lights', 'light_on')
 classifierAction.addDocument('turn the fan on', 'switch_on')
 classifierAction.addDocument("why isn't the the fan on?", 'switch_on')
-classifierAction.addDocument("fan should be on", 'switch_on')
+classifierAction.addDocument('fan should be on', 'switch_on')
 classifierAction.addDocument('lights should be on', 'light_on')
 classifierAction.addDocument('activate lights', 'light_on')
 classifierAction.addDocument('activate fan', 'switch_on')
@@ -69,8 +69,6 @@ classifierAction.addDocument('raise volume', 'volume_up')
 classifierAction.addDocument('raise level', 'volume_up')
 classifierAction.addDocument('raise sound', 'volume_up')
 classifierAction.addDocument('sound up', 'volume_up')
-
-
 
 // Volume Down Classifiers
 classifierAction.addDocument('volume_down', 'volume_down')
@@ -128,7 +126,7 @@ classifierAction.addDocument('no noise', 'volume_mute')
 classifierAction.addDocument('no sound', 'volume_mute')
 classifierAction.addDocument('no music', 'volume_mute')
 
-//Check Device Classifiers
+// Check Device Classifiers
 classifierAction.addDocument('what_devices', 'what_devices')
 classifierAction.addDocument('what devices', 'what_devices')
 classifierAction.addDocument('what can I do', 'what_devices')
@@ -150,7 +148,7 @@ classifierAction.addDocument('possible controls', 'what_devices')
 classifierAction.addDocument('list of possible devices', 'what_devices')
 classifierAction.addDocument('list of controls', 'what_devices')
 
-//Light Status Classifiers
+// Light Status Classifiers
 classifierAction.addDocument('light_status', 'light_status')
 classifierAction.addDocument('light status', 'light_status')
 classifierAction.addDocument('are my lights on', 'light_status')
@@ -164,7 +162,7 @@ classifierAction.addDocument('is the light off', 'light_status')
 classifierAction.addDocument('is my light off', 'light_status')
 classifierAction.addDocument('are my lights off', 'light_status')
 
-//Switch Status Classifiers
+// Switch Status Classifiers
 classifierAction.addDocument('switch_status', 'switch_status')
 classifierAction.addDocument('switch status', 'switch_status')
 classifierAction.addDocument('are my switches on', 'switch_status')
@@ -182,7 +180,7 @@ classifierAction.addDocument('is the fan off', 'switch_status')
 classifierAction.addDocument('is my fan off', 'switch_status')
 classifierAction.addDocument('what is the status of the fan', 'switch_status')
 
-//Light Red Classifieres
+// Light Red Classifieres
 classifierAction.addDocument('light_red', 'light_red')
 classifierAction.addDocument('light red', 'light_red')
 classifierAction.addDocument('turn light red', 'light_red')
@@ -194,7 +192,7 @@ classifierAction.addDocument('can be red', 'light_red')
 classifierAction.addDocument('use red light', 'light_red')
 classifierAction.addDocument('should be red', 'light_red')
 
-//Light Green Classifieres
+// Light Green Classifieres
 classifierAction.addDocument('light_green', 'light_green')
 classifierAction.addDocument('light green', 'light_green')
 classifierAction.addDocument('turn light green', 'light_green')
@@ -206,8 +204,7 @@ classifierAction.addDocument('can be green', 'light_green')
 classifierAction.addDocument('use green light', 'light_green')
 classifierAction.addDocument('switch to green', 'light_green')
 
-
-//Light Blue Classifieres
+// Light Blue Classifieres
 classifierAction.addDocument('light_blue', 'light_blue')
 classifierAction.addDocument('light blue', 'light_blue')
 classifierAction.addDocument('turn light blue', 'light_blue')
@@ -219,8 +216,7 @@ classifierAction.addDocument('can be blue', 'light_blue')
 classifierAction.addDocument('use blue light', 'light_blue')
 classifierAction.addDocument('switch to blue', 'light_blue')
 
-
-//Media Status Classifiers
+// Media Status Classifiers
 classifierAction.addDocument('media_status', 'media_status')
 classifierAction.addDocument('media status', 'media_status')
 classifierAction.addDocument('is the media player on', 'media_status')
@@ -239,7 +235,7 @@ classifierAction.addDocument('is my media player off', 'media_status')
 classifierAction.addDocument('what is the status of the media', 'media_status')
 classifierAction.addDocument('what is the status of the player', 'media_status')
 
-//Media Play Classifiers
+// Media Play Classifiers
 classifierAction.addDocument('media_play', 'media_play')
 classifierAction.addDocument('media play', 'media_play')
 classifierAction.addDocument('turn the media player on', 'media_play')
@@ -248,7 +244,7 @@ classifierAction.addDocument('turn on the media player', 'media_play')
 classifierAction.addDocument('switch on the media player', 'media_play')
 classifierAction.addDocument('turn the player on', 'media_play')
 classifierAction.addDocument("why isn't the the media player on?", 'media_play')
-classifierAction.addDocument("media player should be on", 'media_play')
+classifierAction.addDocument('media player should be on', 'media_play')
 classifierAction.addDocument('player should be on', 'media_play')
 classifierAction.addDocument('activate media', 'media_play')
 classifierAction.addDocument('activate player', 'media_play')
@@ -280,7 +276,7 @@ classifierAction.addDocument('restart music media player', 'media_play')
 classifierAction.addDocument('play music', 'media_play')
 classifierAction.addDocument('play media', 'media_play')
 
-//Media Pause Classifiers
+// Media Pause Classifiers
 classifierAction.addDocument('media_pause', 'media_pause')
 classifierAction.addDocument('media pause', 'media_pause')
 classifierAction.addDocument('pause media', 'media_pause')
@@ -288,7 +284,7 @@ classifierAction.addDocument('pause player', 'media_pause')
 classifierAction.addDocument('pause media player', 'media_pause')
 classifierAction.addDocument('pause music')
 
-//Media Stop Classifiers
+// Media Stop Classifiers
 classifierAction.addDocument('media_stop', 'media_stop')
 classifierAction.addDocument('media stop', 'media_stop')
 classifierAction.addDocument('turn the media player off', 'media_stop')
@@ -296,8 +292,8 @@ classifierAction.addDocument('switch the player off', 'media_stop')
 classifierAction.addDocument('turn off the media player', 'media_stop')
 classifierAction.addDocument('switch off the media player', 'media_stop')
 classifierAction.addDocument('turn the player off', 'media_stop')
-classifierAction.addDocument("why is the the media player on?", 'media_stop')
-classifierAction.addDocument("media player should be off", 'media_stop')
+classifierAction.addDocument('why is the the media player on?', 'media_stop')
+classifierAction.addDocument('media player should be off', 'media_stop')
 classifierAction.addDocument('player should be off', 'media_stop')
 classifierAction.addDocument('deactivate media', 'media_stop')
 classifierAction.addDocument('deactivate player', 'media_stop')
@@ -319,8 +315,7 @@ classifierAction.addDocument('stop music media', 'media_stop')
 classifierAction.addDocument('stop playing music', 'media_stop')
 classifierAction.addDocument('stop playing media', 'media_stop')
 
-
-//Climate Status Classifiers
+// Climate Status Classifiers
 classifierAction.addDocument('climate_status', 'climate_status')
 classifierAction.addDocument('climate status', 'climate_status')
 classifierAction.addDocument('what is the temperature', 'climate_status')
@@ -347,8 +342,7 @@ classifierAction.addDocument('is thermostat set', 'climate_status')
 classifierAction.addDocument('what does thermostat say', 'climate_status')
 classifierAction.addDocument('how does thermostat read', 'climate_status')
 
-
-//Temperature Up Classifiers
+// Temperature Up Classifiers
 classifierAction.addDocument('temperature_up', 'temperature_up')
 classifierAction.addDocument('temperature up', 'temperature_up')
 classifierAction.addDocument('make warmer', 'temperature_up')
@@ -366,7 +360,7 @@ classifierAction.addDocument('run the heat', 'temperature_up')
 classifierAction.addDocument('turn up heat', 'temperature_up')
 classifierAction.addDocument('turn up temperature', 'temperature_up')
 
-//Temperature Down Classifiers
+// Temperature Down Classifiers
 classifierAction.addDocument('temperature_down', 'temperature_down')
 classifierAction.addDocument('temperature down', 'temperature_down')
 classifierAction.addDocument('make cooler', 'temperature_down')
@@ -404,8 +398,7 @@ classifierAction.addDocument('run the AC', 'temperature_down')
 classifierAction.addDocument('run the ac', 'temperature_down')
 classifierAction.addDocument('run the a/c', 'temperature_down')
 
-
-//Light Up Classifiers
+// Light Up Classifiers
 classifierAction.addDocument('light_up', 'light_up')
 classifierAction.addDocument('light up', 'light_up')
 classifierAction.addDocument('make brighter', 'light_up')
@@ -416,8 +409,7 @@ classifierAction.addDocument('increase brightness', 'light_up')
 classifierAction.addDocument('up the light', 'light_up')
 classifierAction.addDocument('raise brightness', 'light_up')
 
-
-//Light Down Classifiers
+// Light Down Classifiers
 classifierAction.addDocument('light_down', 'light_down')
 classifierAction.addDocument('light down', 'light_up')
 classifierAction.addDocument('make darker', 'light_down')
@@ -428,19 +420,21 @@ classifierAction.addDocument('lower the lights', 'light_down')
 classifierAction.addDocument('make dimmer', 'light_down')
 classifierAction.addDocument('dim the lights', 'light_down')
 
-
-
-
 classifierAction.train()
 
-classifierAction.save('classifierAction.json', function (err, classifier) {
-    if (err) {
-      console.log(err)
-    }
-    // the classifier is saved to the classifier.json file!
-  })
+// Turn the light on. (light_on)
+//   Turn the light off. (light_off)
+//   What lights are on? (light_status)
+//   What all can you do for me? (what_devices)
+//   Turn the air up. (temperature_up)
+//   Turn the air down. (temperature_down)
 
-// console.log(classifierAction.classify(//'test words here')
+classifierAction.save('classifierActionTest2.json', function (err, classifier) {
+  if (err) {
+    console.log(err)
+  }
+  // the classifier is saved to the classifier.json file!
+})
 
 // classifierAction.save('classifierAction.json', function (classifier) {
 //   // the classifier is saved to the classifier.json file!
