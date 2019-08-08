@@ -33,6 +33,8 @@ classifierAction.addDocument("it's dark in here", 'light_on')
 classifierAction.addDocument('its dark in here', 'light_on')
 classifierAction.addDocument('switch that thing on', 'switch_on')
 classifierAction.addDocument('bring up the lights', 'light_on')
+classifierAction.addDocument('let there be light', 'light_on')
+
 // classifierAction.addDocument('turn on camera', 'turn_on')
 
 // Light/Switch Turn Off Classifiers
@@ -57,6 +59,9 @@ classifierAction.addDocument('turn off lights', 'light_off')
 classifierAction.addDocument('turn off switch', 'switch_off')
 classifierAction.addDocument('shut down lights', 'light_off')
 classifierAction.addDocument('bring down the lights', 'light_off')
+classifierAction.addDocument('dark', 'light_off')
+classifierAction.addDocument('off', 'switch_off')
+
 
 // Volume Up Classifiers
 classifierAction.addDocument('volume_up', 'volume_up')
@@ -69,6 +74,9 @@ classifierAction.addDocument('raise volume', 'volume_up')
 classifierAction.addDocument('raise level', 'volume_up')
 classifierAction.addDocument('raise sound', 'volume_up')
 classifierAction.addDocument('sound up', 'volume_up')
+classifierAction.addDocument('up', 'volume_up')
+classifierAction.addDocument('raise', 'volume_up')
+
 
 // Volume Down Classifiers
 classifierAction.addDocument('volume_down', 'volume_down')
@@ -81,6 +89,8 @@ classifierAction.addDocument('lower volume', 'volume_down')
 classifierAction.addDocument('lower level', 'volume_down')
 classifierAction.addDocument('lower sound', 'volume_down')
 classifierAction.addDocument('sound down', 'volume_down')
+classifierAction.addDocument('down', 'volume_down')
+classifierAction.addDocument('lower', 'volume_down')
 
 // Mute Classifiers
 classifierAction.addDocument('volume_mute', 'volume_mute')
@@ -125,6 +135,8 @@ classifierAction.addDocument('mute all', 'volume_mute')
 classifierAction.addDocument('no noise', 'volume_mute')
 classifierAction.addDocument('no sound', 'volume_mute')
 classifierAction.addDocument('no music', 'volume_mute')
+classifierAction.addDocument('mute', 'volume_mute')
+classifierAction.addDocument('silence', 'volume_mute')
 
 // Check Device Classifiers
 classifierAction.addDocument('what_devices', 'what_devices')
@@ -146,7 +158,8 @@ classifierAction.addDocument('all abilities', 'what_devices')
 classifierAction.addDocument('possible devices', 'what_devices')
 classifierAction.addDocument('possible controls', 'what_devices')
 classifierAction.addDocument('list of possible devices', 'what_devices')
-classifierAction.addDocument('list of controls', 'what_devices')
+classifierAction.addDocument('device', 'what_devices')
+classifierAction.addDocument('devices', 'what_devices')
 
 // Light Status Classifiers
 classifierAction.addDocument('light_status', 'light_status')
@@ -161,6 +174,9 @@ classifierAction.addDocument('what lights are on', 'light_status')
 classifierAction.addDocument('is the light off', 'light_status')
 classifierAction.addDocument('is my light off', 'light_status')
 classifierAction.addDocument('are my lights off', 'light_status')
+classifierAction.addDocument('light', 'light_status')
+classifierAction.addDocument('lights', 'light_status')
+
 
 // Switch Status Classifiers
 classifierAction.addDocument('switch_status', 'switch_status')
@@ -179,6 +195,8 @@ classifierAction.addDocument('is the fan on', 'switch_status')
 classifierAction.addDocument('is the fan off', 'switch_status')
 classifierAction.addDocument('is my fan off', 'switch_status')
 classifierAction.addDocument('what is the status of the fan', 'switch_status')
+classifierAction.addDocument('switch', 'switch_status')
+
 
 // Light Red Classifieres
 classifierAction.addDocument('light_red', 'light_red')
@@ -191,6 +209,7 @@ classifierAction.addDocument('is light red', 'light_red')
 classifierAction.addDocument('can be red', 'light_red')
 classifierAction.addDocument('use red light', 'light_red')
 classifierAction.addDocument('should be red', 'light_red')
+classifierAction.addDocument('red', 'light_red')
 
 // Light Green Classifieres
 classifierAction.addDocument('light_green', 'light_green')
@@ -203,6 +222,7 @@ classifierAction.addDocument('is light green', 'light_green')
 classifierAction.addDocument('can be green', 'light_green')
 classifierAction.addDocument('use green light', 'light_green')
 classifierAction.addDocument('switch to green', 'light_green')
+classifierAction.addDocument('green', 'light_green')
 
 // Light Blue Classifieres
 classifierAction.addDocument('light_blue', 'light_blue')
@@ -215,6 +235,7 @@ classifierAction.addDocument('is light blue', 'light_blue')
 classifierAction.addDocument('can be blue', 'light_blue')
 classifierAction.addDocument('use blue light', 'light_blue')
 classifierAction.addDocument('switch to blue', 'light_blue')
+classifierAction.addDocument('blue', 'light_blue')
 
 // Media Status Classifiers
 classifierAction.addDocument('media_status', 'media_status')
@@ -275,6 +296,8 @@ classifierAction.addDocument('restart music player', 'media_play')
 classifierAction.addDocument('restart music media player', 'media_play')
 classifierAction.addDocument('play music', 'media_play')
 classifierAction.addDocument('play media', 'media_play')
+classifierAction.addDocument('play', 'media_play')
+classifierAction.addDocument('start', 'media_play')
 
 // Media Pause Classifiers
 classifierAction.addDocument('media_pause', 'media_pause')
@@ -282,7 +305,8 @@ classifierAction.addDocument('media pause', 'media_pause')
 classifierAction.addDocument('pause media', 'media_pause')
 classifierAction.addDocument('pause player', 'media_pause')
 classifierAction.addDocument('pause media player', 'media_pause')
-classifierAction.addDocument('pause music')
+classifierAction.addDocument('pause music', 'media_pause')
+classifierAction.addDocument('pause', 'media_pause')
 
 // Media Stop Classifiers
 classifierAction.addDocument('media_stop', 'media_stop')
@@ -314,6 +338,8 @@ classifierAction.addDocument('stop music player', 'media_stop')
 classifierAction.addDocument('stop music media', 'media_stop')
 classifierAction.addDocument('stop playing music', 'media_stop')
 classifierAction.addDocument('stop playing media', 'media_stop')
+classifierAction.addDocument('stop', 'media_stop')
+classifierAction.addDocument('quit', 'media_stop')
 
 // Climate Status Classifiers
 classifierAction.addDocument('climate_status', 'climate_status')
@@ -359,6 +385,11 @@ classifierAction.addDocument('up the temperature', 'temperature_up')
 classifierAction.addDocument('run the heat', 'temperature_up')
 classifierAction.addDocument('turn up heat', 'temperature_up')
 classifierAction.addDocument('turn up temperature', 'temperature_up')
+classifierAction.addDocument('warmer', 'temperature_up')
+classifierAction.addDocument('hotter', 'temperature_up')
+classifierAction.addDocument('warm up', 'temperature_up')
+classifierAction.addDocument('warming', 'temperature_up')
+classifierAction.addDocument('heating', 'temperature_up')
 
 // Temperature Down Classifiers
 classifierAction.addDocument('temperature_down', 'temperature_down')
@@ -397,6 +428,8 @@ classifierAction.addDocument('run the A/C', 'temperature_down')
 classifierAction.addDocument('run the AC', 'temperature_down')
 classifierAction.addDocument('run the ac', 'temperature_down')
 classifierAction.addDocument('run the a/c', 'temperature_down')
+classifierAction.addDocument('cooler', 'temperature_down')
+classifierAction.addDocument('colder', 'temperature_down')
 
 // Light Up Classifiers
 classifierAction.addDocument('light_up', 'light_up')
@@ -408,6 +441,10 @@ classifierAction.addDocument('increase lights', 'light_up')
 classifierAction.addDocument('increase brightness', 'light_up')
 classifierAction.addDocument('up the light', 'light_up')
 classifierAction.addDocument('raise brightness', 'light_up')
+classifierAction.addDocument('brighter', 'light_up')
+classifierAction.addDocument('lighter', 'light_up')
+classifierAction.addDocument('stronger light', 'light_up')
+classifierAction.addDocument('stronger', 'light_up')
 
 // Light Down Classifiers
 classifierAction.addDocument('light_down', 'light_down')
@@ -419,6 +456,10 @@ classifierAction.addDocument('decrease lights', 'light_down')
 classifierAction.addDocument('lower the lights', 'light_down')
 classifierAction.addDocument('make dimmer', 'light_down')
 classifierAction.addDocument('dim the lights', 'light_down')
+classifierAction.addDocument('dim', 'light_down')
+classifierAction.addDocument('dimmer', 'light_down')
+classifierAction.addDocument('lower', 'light_down')
+classifierAction.addDocument('darker', 'light_down')
 
 classifierAction.train()
 
