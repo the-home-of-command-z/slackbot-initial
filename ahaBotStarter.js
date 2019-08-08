@@ -391,7 +391,7 @@ async function turnSwitchOn (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your *${switchState.data.attributes.friendly_name} switch* is now *${switchState.data.state}*`
+    text: `Your *${switchState.data.attributes.friendly_name} switch* is now *${switchState.data.state}* :movie_camera:`
   })
 }
 async function turnLightBlue (userUrl, authHeadersActual, event) {
@@ -415,7 +415,7 @@ async function turnLightPolice (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your *${lightState.data.attributes.friendly_name} light* is displaying a police strobe effect.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is calling the cops! Hide the stuff! :rotating_light:`
   })
 }
 
@@ -440,7 +440,7 @@ async function turnLightRandom (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your *${lightState.data.attributes.friendly_name} light* is displaying a random light loop.`
+    text: `Your *${lightState.data.attributes.friendly_name} light* is going freaking nuts. :rocket: :boom:`
   })
 }
 async function turnLightStop (userUrl, authHeadersActual, event) {
@@ -581,7 +581,7 @@ async function turnClimateUp (userURL, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your temperature is now set to *${climateState.data.temperature}*`
+    text: `Your temperature is now set to *${climateState.data.temperature}* :fire:`
   })
 }
 async function turnClimateDown (userURL, authHeadersActual, event) {
@@ -599,7 +599,7 @@ async function turnClimateDown (userURL, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your temperature is now set to *${climateState.data.temperature}*`
+    text: `Your temperature is now set to *${climateState.data.temperature}* :snowflake:`
   })
 }
 async function turnLightUp (userUrl, authHeadersActual, event) {
