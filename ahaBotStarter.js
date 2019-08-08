@@ -757,6 +757,12 @@ async function checkCarRange (userUrl, authHeadersActual, event) {
   })
 }
 
+async function getHelp (event) {
+  web.chat.postMessage({
+    channel: event.channel,
+    text: 'Hi there!\nIt seems you are trying to get assitance.\nFor a list of commands that AHAbot can accept, please visit https://ahabot-registration.herokuapp.com/help/'
+  })
+}
 (async () => {
   // Start the built-in server
   const server = await slackEvents.start(port)
