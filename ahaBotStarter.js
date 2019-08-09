@@ -905,7 +905,7 @@ async function checkCarRange (userUrl, authHeadersActual, event) {
 async function getHelp (event) {
   web.chat.postMessage({
     channel: event.channel,
-    text: 'Hi there!\nIt seems you are trying to get assitance.\n*For a list of commands that AHAbot can accept, please visit* https://ahabot-registration.herokuapp.com/help/'
+    text: 'Hi there!\nIt seems you are trying to get assistance.\n*For a list of commands that AHAbot can accept, please visit* https://ahabot-registration.herokuapp.com/help/'
   })
 }
 (async () => {
