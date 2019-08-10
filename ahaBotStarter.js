@@ -356,6 +356,10 @@ async function explicitCommand (event, authHeadersActual, userUrl){
     checkCarRange(userUrl, authHeadersActual, event)
     return true
   }
+  if (event.text.includes('update_reg')) {
+    updateReg(event)
+    return true
+  }
   return false
 }
 
@@ -906,6 +910,12 @@ async function getHelp (event) {
   web.chat.postMessage({
     channel: event.channel,
     text: 'Hi there!\nIt seems you are trying to get assistance.\n*For a list of commands that AHAbot can accept, please visit* https://ahabot-registration.herokuapp.com/help/'
+  })
+}
+async function updateReg (event) {
+  web.chat.postMessage({
+    channel: event.channel,
+    text: 'Hello there!\nIf you need to update your Home Assistant registration, click https://ahabot-registration.herokuapp.com/ and then click the link labeled Update Registration to update your URL and access token.'
   })
 }
 (async () => {
