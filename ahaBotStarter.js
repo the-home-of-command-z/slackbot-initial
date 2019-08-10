@@ -28,7 +28,10 @@ slackEvents.on('app_mention', async (event) => {
     })
   }
   else {
-  const userUrl = await userInfoResponse.data[0].url
+  let userUrl = await userInfoResponse.data[0].url
+    if (userUrl.includes('https')) {
+      userUrl = userUrl.slice(8)
+    }
   const authHeadersActual = await makeHeader(userInfoResponse)
   let actionClass
   if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
