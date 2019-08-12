@@ -52,8 +52,14 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('master')) {
     instance = 'master_bedroom'
   }
+  if (event.text.includes('outdoor') || event.text.includes('outside')) {
+    instance = 'outdoor'
+  }
   if (event.text.includes('front door') || event.text.includes('front_door')) {
     instance = 'front_door'
+  }
+  if (event.text.includes('back door') || event.text.includes('back_door')) {
+    instance = 'back_door'
   }
   if (await explicitCommand(event, authHeadersActual, userUrl) === false){
   natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
