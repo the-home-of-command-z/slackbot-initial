@@ -52,6 +52,9 @@ slackEvents.on('app_mention', async (event) => {
   if (event.text.includes('master')) {
     instance = 'master_bedroom'
   }
+  if (event.text.includes('outdoor') || event.text.includes('outside')) {
+    instance = 'outdoor'
+  }
   if (event.text.includes('front door') || event.text.includes('front_door')) {
     instance = 'front_door'
   }
