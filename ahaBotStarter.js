@@ -369,6 +369,14 @@ async function explicitCommand (event, authHeadersActual, userUrl){
     updateReg(event)
     return true
   }
+  if (event.text.includes('rickroll')) {
+    rickRoll(userUrl, authHeadersActual, event)
+    return true
+  }
+  if (event.text.includes('themesong')) {
+    themeSong(userUrl, authHeadersActual, event)
+    return true
+  }
   return false
 }
 
@@ -616,7 +624,7 @@ async function turnMediaMute (userUrl, authHeadersActual, event) {
   })
 }
 async function checkClimateStatus (userUrl, authHeadersActual, event) {
-  let climateState = await axios.get(`https://${userUrl}/api/states/climate`, {
+  let climateState = await axios.get(`https://${userUrl}/api/states/climate.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -626,7 +634,7 @@ async function checkClimateStatus (userUrl, authHeadersActual, event) {
 }
 
 async function turnClimateUp (userURL, authHeadersActual, event) {
-  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate.${instance}`, { entity_id: `climate.${instance}` }, {
     headers: authHeadersActual
   })
   let currentTemp = climateState.data.temperature
@@ -635,7 +643,7 @@ async function turnClimateUp (userURL, authHeadersActual, event) {
   await axios.post(`https://${userURL}/api/services/climate.set_temperature`, sendTemp, {
     headers: authHeadersActual
   })
-  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -644,7 +652,7 @@ async function turnClimateUp (userURL, authHeadersActual, event) {
   })
 }
 async function turnClimateDown (userURL, authHeadersActual, event) {
-  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate.${instance}`, { entity_id: `climate.${instance}` }, {
     headers: authHeadersActual
   })
   let currentTemp = climateState.data.tempearture
@@ -653,7 +661,7 @@ async function turnClimateDown (userURL, authHeadersActual, event) {
   await axios.post(`https://${userURL}/api/services/climate.set_temperature`, sendTemp, {
     headers: authHeadersActual
   })
-  let climateState = await axios.get(`https://${userURL}/api/states/climate`, {
+  let climateState = await axios.get(`https://${userURL}/api/states/climate.${instance}`, {
     headers: authHeadersActual
   })
   web.chat.postMessage({
@@ -925,6 +933,28 @@ async function updateReg (event) {
   web.chat.postMessage({
     channel: event.channel,
     text: 'Hello there!\nIf you need to update your Home Assistant registration, click https://ahabot-registration.herokuapp.com/ and then click the link labeled Update Registration to update your URL and access token.'
+  })
+}
+async function rickRoll (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_extractor/media_play`, {entity_id: "media_player.bedroom_display",
+  media_content_id: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+ media_content_type: "video/mp4"}, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    text: `Your media player is now *rolling* hard with *Rick!*`
+  })
+}
+async function themeSong (userUrl, authHeadersActual, event) {
+  await axios.post(`https://${userUrl}/api/services/media_extractor/media_play`, {entity_id: "media_player.bedroom_display",
+  media_content_id: "https://www.youtube.com/watch?v=djV11Xbc914",
+ media_content_type: "video/mp4"}, {
+    headers: authHeadersActual
+  })
+  web.chat.postMessage({
+    channel: event.channel,
+    text: `Your media player is now playing my *Theme Song!*`
   })
 }
 (async () => {
