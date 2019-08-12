@@ -936,7 +936,7 @@ async function updateReg (event) {
   })
 }
 async function rickRoll (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_extractor/media_play`, {entity_id: "media_player.bedroom_display",
+  await axios.post(`https://${userUrl}/api/services/media_extractor/play_media`, {entity_id: "media_player.bedroom_display",
   media_content_id: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
  media_content_type: "video/mp4"}, {
     headers: authHeadersActual
@@ -947,7 +947,7 @@ async function rickRoll (userUrl, authHeadersActual, event) {
   })
 }
 async function themeSong (userUrl, authHeadersActual, event) {
-  await axios.post(`https://${userUrl}/api/services/media_extractor/media_play`, {entity_id: "media_player.bedroom_display",
+  await axios.post(`https://${userUrl}/api/services/media_extractor/play_media`, {entity_id: "media_player.bedroom_display",
   media_content_id: "https://www.youtube.com/watch?v=djV11Xbc914",
  media_content_type: "video/mp4"}, {
     headers: authHeadersActual
