@@ -504,6 +504,37 @@ classifierAction.addDocument('dimmer', 'light_down')
 classifierAction.addDocument('lower', 'light_down')
 classifierAction.addDocument('darker', 'light_down')
 
+//How Home Classifiers
+classifierAction.addDocument('how_home', 'how_home')
+classifierAction.addDocument('how home', 'how_home')
+
+//What On Classifiers
+classifierAction.addDocument('what_on', 'what_on')
+classifierAction.addDocument('what on', 'what_on')
+
+//What Off Classiferes
+classifierAction.addDocument('what_off', 'what_off')
+classifierAction.addDocument('what off', 'what_off')
+
+//What Lights Classifiers
+classifierAction.addDocument('what_lights', 'what_lights')
+classifierAction.addDocument('what lights', 'what_lights')
+
+//What Switches Classifiers
+classifierAction.addDocument('what_switches', 'what_switches')
+classifierAction.addDocument('what switches', 'what switches')
+
+//What Therm Classifiers
+classifierAction.addDocument('what_therm', 'what_therm')
+classifierAction.addDocument('what therm', 'what therm')
+
+//What Media Classifers
+classifierAction.addDocument('what_media', 'what_media')
+classifierAction.addDocument('what media', 'what_media')
+
+
+
+
 classifierAction.train()
 
 // Turn the light on. (light_on)
