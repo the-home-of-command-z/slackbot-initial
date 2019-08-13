@@ -376,6 +376,10 @@ async function explicitCommand (event, authHeadersActual, userUrl){
     themeSong(userUrl, authHeadersActual, event)
     return true
   }
+  if (event.text.includes('hey there')) {
+    greeting(event)
+    return true
+  }
   return false
 }
 
@@ -948,6 +952,12 @@ async function themeSong (userUrl, authHeadersActual, event) {
   web.chat.postMessage({
     channel: event.channel,
     text: `Your media player is now playing my *Theme Song!*`
+  })
+}
+async function greeting (event) {
+  web.chat.postMessage({
+    channel: event.channel,
+    text: 'Hey! :wave: I’m Aha Bot, I can help you regain control of your home when you’re away. I can recognize a lot of natural language commands but if you ever want me to do something and I can’t figure it out, just visit https://ahabot-registration.herokuapp.com/help/'
   })
 }
 (async () => {
