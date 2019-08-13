@@ -179,8 +179,6 @@ classifierAction.addDocument('check the switch', 'switch_status')
 classifierAction.addDocument('my switch status', 'switch_status')
 classifierAction.addDocument('status of switch', 'switch_status')
 classifierAction.addDocument('what switch is on', 'switch_status')
-classifierAction.addDocument('is the switch off', 'switch_status')
-classifierAction.addDocument('is my switch off', 'switch_status')
 
 
 // Light Red Classifieres
