@@ -507,14 +507,26 @@ classifierAction.addDocument('darker', 'light_down')
 //How Home Classifiers
 classifierAction.addDocument('how_home', 'how_home')
 classifierAction.addDocument('how home', 'how_home')
+classifierAction.addDocument('how is my home doing', 'how_home')
+classifierAction.addDocument('status of my home', 'how_home')
+classifierAction.addDocument('status at home', 'how_home')
+
 
 //What On Classifiers
 classifierAction.addDocument('what_on', 'what_on')
 classifierAction.addDocument('what on', 'what_on')
+classifierAction.addDocument('whats on in my house', 'what_on')
+classifierAction.addDocument('what devices are on', 'what_on')
+classifierAction.addDocument('what is on at home', 'what_on')
+classifierAction.addDocument('what device is on', 'what_on')
+classifierAction.addDocument('whats turned on at home', 'what_on')
 
 //What Off Classiferes
 classifierAction.addDocument('what_off', 'what_off')
-classifierAction.addDocument('what off', 'what_off')
+classifierAction.addDocument('what devices are off', 'what_off')
+classifierAction.addDocument('are devices off', 'what_off')
+classifierAction.addDocument('what is off', 'what_off')
+classifierAction.addDocument('what is off in my house', 'what_off')
 
 //What Lights Classifiers
 classifierAction.addDocument('what_lights', 'what_lights')
