@@ -68,15 +68,8 @@ slackEvents.on('app_mention', async (event) => {
     }
   
   if (classifier.getClassifications(event.text)[0].value > .95){
-      actionClass = classifier.getClassifications(event.text)[0].label
-      console.log('actionClass in function:', actionClass)
-      console.log('typeof actionClass:', typeof(actionClass))
-      if (actionClass === 'how_home') {
-        getStates(userUrl, authHeadersActual, event)
-      }
+      actionClass = classifier.getClassifications(event.text)[0].label    
   
-  
-  console.log('actionClass ifs:', actionClass)
   // listeners begin
   
   if (actionClass === 'how_home') {
@@ -784,7 +777,6 @@ async function getStates (userUrl, authHeadersActual, event) {
 
 async function whatDevices (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
-  console.log(statesData)
   const entityArray = []
   for (const entity of statesData.data) {
     entityArray.push(entity.entity_id)
@@ -805,7 +797,6 @@ async function whatDevices (userUrl, authHeadersActual, event) {
   if (typeof mediaResult[0] === 'string') {
     ifMedia = '!'
   }
-  console.log(entityArray)
   web.chat.postMessage({
     channel: event.channel,
     text: `I can control your *smart lighting*${ifLight}\nI can control your *smart plugs and outlets*${ifSwitch}\nI can control your *thermostat*${ifTherm}\nI can control your *smart media player(s)*${ifMedia}`
@@ -814,7 +805,6 @@ async function whatDevices (userUrl, authHeadersActual, event) {
 
 async function whatLights (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
-  console.log(statesData)
   const entityArray = []
   let entityString = ''
   for (const entity of statesData.data) {
@@ -834,7 +824,6 @@ async function whatLights (userUrl, authHeadersActual, event) {
 
 async function whatSwitches (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
-  console.log(statesData)
   const entityArray = []
   let entityString = ''
   for (const entity of statesData.data) {
@@ -854,7 +843,6 @@ async function whatSwitches (userUrl, authHeadersActual, event) {
 
 async function whatTherm (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
-  console.log(statesData)
   const entityArray = []
   let entityString = ''
   for (const entity of statesData.data) {
@@ -874,7 +862,6 @@ async function whatTherm (userUrl, authHeadersActual, event) {
 
 async function whatMedia (userUrl, authHeadersActual, event) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
-  console.log(statesData)
   const entityArray = []
   let entityString = ''
   for (const entity of statesData.data) {
