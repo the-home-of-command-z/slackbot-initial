@@ -461,7 +461,7 @@ async function turnSwitchOn (userUrl, authHeadersActual, event) {
   })
   web.chat.postMessage({
     channel: event.channel,
-    text: `Your *${switchState.data.attributes.friendly_name} switch* is now *${switchState.data.state}* :movie_camera:`
+    text: `Your *${switchState.data.attributes.friendly_name} switch* is now *${switchState.data.state}* :electric_plug:`
   })
 }
 async function turnLightBlue (userUrl, authHeadersActual, event) {
