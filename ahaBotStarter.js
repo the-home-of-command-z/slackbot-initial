@@ -15,6 +15,8 @@ var ifSwitch = ' if you connect supported smart plugs or outlets to Home Assista
 var ifTherm = ' if you connect supported smart thermostats to Home Assistant.'
 var ifMedia = ' if you connect supported media players to Home Assistant.'
 var instance = 'living_room'
+var friendlyRoom = []
+var rawRoom = []
 
 
 // Main bot function chain contained in here, triggered by event
@@ -33,33 +35,64 @@ slackEvents.on('app_mention', async (event) => {
       userUrl = userUrl.slice(8)
     }
   const authHeadersActual = await makeHeader(userInfoResponse)
+  getRooms (userUrl, authHeadersActual)
   let actionClass
-  if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
-    instance = 'living_room'
+  // if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
+  //   instance = 'living_room'
+  // }
+  // if (event.text.includes('bed room') || event.text.includes('bedroom') || event.text.includes('bed_room')) {
+  //   instance = 'bedroom'
+  // }
+  // if (event.text.includes('bath room') || event.text.includes('bathroom') || event.text.includes('bath_room')) {
+  //   instance = 'bathroom'
+  // }
+  // if (event.text.includes('kitchen')) {
+  //   instance = 'kitchen'
+  // }
+  // if (event.text.includes('office')) {
+  //   instance = 'office'
+  // }
+  // if (event.text.includes('master')) {
+  //   instance = 'master_bedroom'
+  // }
+  // if (event.text.includes('outdoor') || event.text.includes('outside')) {
+  //   instance = 'outdoor'
+  // }
+  // if (event.text.includes('front door') || event.text.includes('front_door')) {
+  //   instance = 'front_door'
+  // }
+  // if (event.text.includes('back door') || event.text.includes('back_door')) {
+  //   instance = 'back_door'
+  // }
+  if (event.text.includes(friendlyRoom[0]) || event.text.includes(rawRoom[0])) {
+    instance = rawRoom[0]
   }
-  if (event.text.includes('bed room') || event.text.includes('bedroom') || event.text.includes('bed_room')) {
-    instance = 'bedroom'
+  if (event.text.includes(friendlyRoom[1]) || event.text.includes(rawRoom[1])) {
+    instance = rawRoom[1]
   }
-  if (event.text.includes('bath room') || event.text.includes('bathroom') || event.text.includes('bath_room')) {
-    instance = 'bathroom'
+  if (event.text.includes(friendlyRoom[2]) || event.text.includes(rawRoom[2])) {
+    instance = rawRoom[2]
   }
-  if (event.text.includes('kitchen')) {
-    instance = 'kitchen'
+  if (event.text.includes(friendlyRoom[3]) || event.text.includes(rawRoom[3])) {
+    instance = rawRoom[3]
   }
-  if (event.text.includes('office')) {
-    instance = 'office'
+  if (event.text.includes(friendlyRoom[4]) || event.text.includes(rawRoom[4])) {
+    instance = rawRoom[4]
   }
-  if (event.text.includes('master')) {
-    instance = 'master_bedroom'
+  if (event.text.includes(friendlyRoom[5]) || event.text.includes(rawRoom[5])) {
+    instance = rawRoom[5]
   }
-  if (event.text.includes('outdoor') || event.text.includes('outside')) {
-    instance = 'outdoor'
+  if (event.text.includes(friendlyRoom[6]) || event.text.includes(rawRoom[6])) {
+    instance = rawRoom[6]
   }
-  if (event.text.includes('front door') || event.text.includes('front_door')) {
-    instance = 'front_door'
+  if (event.text.includes(friendlyRoom[7]) || event.text.includes(rawRoom[7])) {
+    instance = rawRoom[7]
   }
-  if (event.text.includes('back door') || event.text.includes('back_door')) {
-    instance = 'back_door'
+  if (event.text.includes(friendlyRoom[8]) || event.text.includes(rawRoom[8])) {
+    instance = rawRoom[8]
+  }
+  if (event.text.includes(friendlyRoom[9]) || event.text.includes(rawRoom[9])) {
+    instance = rawRoom[9]
   }
   if (await explicitCommand(event, authHeadersActual, userUrl) === false){
   natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
@@ -959,6 +992,33 @@ async function greeting (event) {
     channel: event.channel,
     text: 'Hey! :wave: I’m Aha Bot, I can help you regain control of your home when you’re away. I can recognize a lot of natural language commands but if you ever want me to do something and I can’t figure it out, just visit https://ahabot-registration.herokuapp.com/help/'
   })
+}
+async function getRooms (userUrl, authHeadersActual) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
+  for (const entity of statesData.data) {
+    if (entity.entity_id.includes('light.') || entity.entity_id.includes('switch.') || entity.entity_id.includes('climate.') || entity.entity_id.includes('media_player.')) {
+      friendlyRoom.push(entity.attributes.friendly_name)
+      rawRoom.push(entity.entity_id)
+    }
+  }
+  for (let room of rawRoom) {
+    if (room.includes('light.')) {
+      let newRoom = room.slice(6)
+      rawRoom[rawRoom.indexOf(room)] = newRoom
+    }
+    if (room.includes('switch.')) {
+      let newRoom = room.slice(7)
+      rawRoom[rawRoom.indexOf(room)] = newRoom
+    }
+    if (room.includes('climate.')) {
+      let newRoom = room.slice(8)
+      rawRoom[rawRoom.indexOf(room)] = newRoom
+    }
+    if (room.includes('media_player.')) {
+      let newRoom = room.slice(13)
+      rawRoom[rawRoom.indexOf(room)] = newRoom
+    }
+  }
 }
 (async () => {
   // Start the built-in server
