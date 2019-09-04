@@ -992,6 +992,7 @@ async function getRooms (userUrl, authHeadersActual) {
       let newRoom = room.slice(13)
       rawRoom[rawRoom.indexOf(room)] = newRoom
     }
+    console.log(rawRoom)
   }
 }
 (async () => {
