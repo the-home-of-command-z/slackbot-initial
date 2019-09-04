@@ -37,33 +37,7 @@ slackEvents.on('app_mention', async (event) => {
   const authHeadersActual = await makeHeader(userInfoResponse)
   getRooms (userUrl, authHeadersActual)
   let actionClass
-  // if (event.text.includes('living room') || event.text.includes('livingroom') || event.text.includes('living_room')) {
-  //   instance = 'living_room'
-  // }
-  // if (event.text.includes('bed room') || event.text.includes('bedroom') || event.text.includes('bed_room')) {
-  //   instance = 'bedroom'
-  // }
-  // if (event.text.includes('bath room') || event.text.includes('bathroom') || event.text.includes('bath_room')) {
-  //   instance = 'bathroom'
-  // }
-  // if (event.text.includes('kitchen')) {
-  //   instance = 'kitchen'
-  // }
-  // if (event.text.includes('office')) {
-  //   instance = 'office'
-  // }
-  // if (event.text.includes('master')) {
-  //   instance = 'master_bedroom'
-  // }
-  // if (event.text.includes('outdoor') || event.text.includes('outside')) {
-  //   instance = 'outdoor'
-  // }
-  // if (event.text.includes('front door') || event.text.includes('front_door')) {
-  //   instance = 'front_door'
-  // }
-  // if (event.text.includes('back door') || event.text.includes('back_door')) {
-  //   instance = 'back_door'
-  // }
+  
   if (event.text.includes(friendlyRoom[0]) || event.text.includes(rawRoom[0])) {
     instance = rawRoom[0]
   }
