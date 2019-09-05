@@ -17,6 +17,7 @@ var ifMedia = ' if you connect supported media players to Home Assistant.'
 var instance = 'living_room'
 var friendlyRoom = []
 var rawRoom = []
+var roomDict = {}
 
 
 // Main bot function chain contained in here, triggered by event
@@ -38,36 +39,41 @@ slackEvents.on('app_mention', async (event) => {
   getRooms (userUrl, authHeadersActual)
   let actionClass
   
-  if (event.text.includes(friendlyRoom[0]) || event.text.includes(rawRoom[0])) {
-    instance = rawRoom[0]
+  for (item of sortedRooms) {
+    if (event.text.includes(item[0]) || event.text.includes(item[1])) {
+      instance = item[0]
+    }
   }
-  if (event.text.includes(friendlyRoom[1]) || event.text.includes(rawRoom[1])) {
-    instance = rawRoom[1]
-  }
-  if (event.text.includes(friendlyRoom[2]) || event.text.includes(rawRoom[2])) {
-    instance = rawRoom[2]
-  }
-  if (event.text.includes(friendlyRoom[3]) || event.text.includes(rawRoom[3])) {
-    instance = rawRoom[3]
-  }
-  if (event.text.includes(friendlyRoom[4]) || event.text.includes(rawRoom[4])) {
-    instance = rawRoom[4]
-  }
-  if (event.text.includes(friendlyRoom[5]) || event.text.includes(rawRoom[5])) {
-    instance = rawRoom[5]
-  }
-  if (event.text.includes(friendlyRoom[6]) || event.text.includes(rawRoom[6])) {
-    instance = rawRoom[6]
-  }
-  if (event.text.includes(friendlyRoom[7]) || event.text.includes(rawRoom[7])) {
-    instance = rawRoom[7]
-  }
-  if (event.text.includes(friendlyRoom[8]) || event.text.includes(rawRoom[8])) {
-    instance = rawRoom[8]
-  }
-  if (event.text.includes(friendlyRoom[9]) || event.text.includes(rawRoom[9])) {
-    instance = rawRoom[9]
-  }
+  // if (event.text.includes(friendlyRoom[0]) || event.text.includes(rawRoom[0])) {
+  //   instance = rawRoom[0]
+  // }
+  // if (event.text.includes(friendlyRoom[1]) || event.text.includes(rawRoom[1])) {
+  //   instance = rawRoom[1]
+  // }
+  // if (event.text.includes(friendlyRoom[2]) || event.text.includes(rawRoom[2])) {
+  //   instance = rawRoom[2]
+  // }
+  // if (event.text.includes(friendlyRoom[3]) || event.text.includes(rawRoom[3])) {
+  //   instance = rawRoom[3]
+  // }
+  // if (event.text.includes(friendlyRoom[4]) || event.text.includes(rawRoom[4])) {
+  //   instance = rawRoom[4]
+  // }
+  // if (event.text.includes(friendlyRoom[5]) || event.text.includes(rawRoom[5])) {
+  //   instance = rawRoom[5]
+  // }
+  // if (event.text.includes(friendlyRoom[6]) || event.text.includes(rawRoom[6])) {
+  //   instance = rawRoom[6]
+  // }
+  // if (event.text.includes(friendlyRoom[7]) || event.text.includes(rawRoom[7])) {
+  //   instance = rawRoom[7]
+  // }
+  // if (event.text.includes(friendlyRoom[8]) || event.text.includes(rawRoom[8])) {
+  //   instance = rawRoom[8]
+  // }
+  // if (event.text.includes(friendlyRoom[9]) || event.text.includes(rawRoom[9])) {
+  //   instance = rawRoom[9]
+  // }
   if (await explicitCommand(event, authHeadersActual, userUrl) === false){
   natural.LogisticRegressionClassifier.load('classifierActionTest2.json', null, function (err, classifier) {
     if (err) {
@@ -992,8 +998,10 @@ async function getRooms (userUrl, authHeadersActual) {
       let newRoom = room.slice(13)
       rawRoom[rawRoom.indexOf(room)] = newRoom
     }
-    console.log(rawRoom)
   }
+  rawRoom.forEach((key, i) => roomDict[key] = friendlyRoom[i])
+  var sortedRooms = Object.entries(roomDict)
+  console.log(sortedRooms)
 }
 (async () => {
   // Start the built-in server
