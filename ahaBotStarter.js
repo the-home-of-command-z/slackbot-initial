@@ -39,6 +39,11 @@ slackEvents.on('app_mention', async (event) => {
   const authHeadersActual = await makeHeader(userInfoResponse)
   let actionClass
   getRooms()
+  for (item of sortedRooms) {
+    if (event.text.includes(item[0]) || event.text.includes(item[1])) {
+      instance = item[0]
+    }
+  }
   // if (event.text.includes(friendlyRoom[0]) || event.text.includes(rawRoom[0])) {
   //   instance = rawRoom[0]
   // }
@@ -997,11 +1002,6 @@ async function getRooms (userUrl, authHeadersActual) {
   rawRoom.forEach((key, i) => roomDict[key] = friendlyRoom[i])
   sortedRooms = Object.entries(roomDict)
   console.log(sortedRooms)
-  for (item of sortedRooms) {
-    if (event.text.includes(item[0]) || event.text.includes(item[1])) {
-      instance = item[0]
-    }
-  }
 }
 (async () => {
   // Start the built-in server
