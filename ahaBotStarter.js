@@ -36,10 +36,9 @@ slackEvents.on('app_mention', async (event) => {
       userUrl = userUrl.slice(8)
     }
   const authHeadersActual = await makeHeader(userInfoResponse)
-  getRooms (userUrl, authHeadersActual)
   let actionClass
-  
-  for (item of sortedRooms) {
+  const allRooms = await getRooms()
+  for (item of allRooms) {
     if (event.text.includes(item[0]) || event.text.includes(item[1])) {
       instance = item[0]
     }
@@ -973,8 +972,8 @@ async function greeting (event) {
     text: 'Hey! :wave: I’m Aha Bot, I can help you regain control of your home when you’re away. I can recognize a lot of natural language commands but if you ever want me to do something and I can’t figure it out, just visit https://ahabot-registration.herokuapp.com/help/'
   })
 }
-function getRooms (userUrl, authHeadersActual) {
-  const statesData = getStatesInfo(userUrl, authHeadersActual)
+async function getRooms (userUrl, authHeadersActual) {
+  const statesData = await getStatesInfo(userUrl, authHeadersActual)
   for (const entity of statesData.data) {
     if (entity.entity_id.includes('light.') || entity.entity_id.includes('switch.') || entity.entity_id.includes('climate.') || entity.entity_id.includes('media_player.')) {
       friendlyRoom.push(entity.attributes.friendly_name)
@@ -1000,8 +999,9 @@ function getRooms (userUrl, authHeadersActual) {
     }
   }
   rawRoom.forEach((key, i) => roomDict[key] = friendlyRoom[i])
-  var sortedRooms = Object.entries(roomDict)
+  const sortedRooms = Object.entries(roomDict)
   console.log(sortedRooms)
+  return sortedRooms
 }
 (async () => {
   // Start the built-in server
