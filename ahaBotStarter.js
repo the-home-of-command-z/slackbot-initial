@@ -18,6 +18,7 @@ var instance = 'living_room'
 var friendlyRoom = []
 var rawRoom = []
 var roomDict = {}
+var sortedRooms = []
 
 
 // Main bot function chain contained in here, triggered by event
@@ -994,7 +995,7 @@ async function getRooms (userUrl, authHeadersActual) {
     }
   }
   rawRoom.forEach((key, i) => roomDict[key] = friendlyRoom[i])
-  const sortedRooms = Object.entries(roomDict)
+  sortedRooms = Object.entries(roomDict)
   console.log(sortedRooms)
   for (item of sortedRooms) {
     if (event.text.includes(item[0]) || event.text.includes(item[1])) {
