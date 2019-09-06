@@ -975,7 +975,8 @@ async function greeting (event) {
 }
 function getRooms (userUrl, authHeadersActual) {
   const statesData = getStatesInfo(userUrl, authHeadersActual)
-  for (const entity of statesData) {
+  console.log(statesData)
+  for (const entity of statesData.data) {
     if (entity.entity_id.includes('light.') || entity.entity_id.includes('switch.') || entity.entity_id.includes('climate.') || entity.entity_id.includes('media_player.')) {
       friendlyRoom.push(entity.attributes.friendly_name)
       rawRoom.push(entity.entity_id)
