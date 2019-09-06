@@ -973,7 +973,7 @@ async function greeting (event) {
     text: 'Hey! :wave: I’m Aha Bot, I can help you regain control of your home when you’re away. I can recognize a lot of natural language commands but if you ever want me to do something and I can’t figure it out, just visit https://ahabot-registration.herokuapp.com/help/'
   })
 }
-function getRooms (userUrl, authHeadersActual) {
+async function getRooms (userUrl, authHeadersActual) {
   const statesData = await getStatesInfo(userUrl, authHeadersActual)
   console.log(statesData)
   for (const entity of statesData.data) {
