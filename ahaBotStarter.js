@@ -38,7 +38,7 @@ slackEvents.on('app_mention', async (event) => {
     }
   const authHeadersActual = await makeHeader(userInfoResponse)
   let actionClass
-  getRooms()
+  getRooms(userUrl, authHeadersActual)
   for (item of sortedRooms) {
     if (event.text.includes(item[0]) || event.text.includes(item[1])) {
       instance = item[0]
